@@ -1,0 +1,11 @@
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\bin\Debug\AutoGarage.exe.config
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\bin\Debug\AutoGarage.exe
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\bin\Debug\AutoGarage.pdb
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.csprojResolveAssemblyReference.cache
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Avtomobil.resources
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Form1.resources
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Properties.Resources.resources
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.csproj.GenerateResource.Cache
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.exe
+c:\users\vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.pdb
+C:\Users\Vick\documents\visual studio 2015\Projects\AutoGarage\AutoGarage\obj\Debug\AutoGarage.ServiceHistory.resources
