@@ -1,2 +1,2 @@
-# Car-Repair-Shop
-University Project - Create a Care Repair Shop 
+# Auto Garage
+University Project - Create a Car Repair Shop 
