@@ -127,6 +127,7 @@
     <Compile Include="DataModel\AutomobileDataModels\ColorDataModel.cs" />
     <Compile Include="DataModel\AutomobileDataModels\EngineDataModel.cs" />
     <Compile Include="DataModel\AutomobileDataModels\OwnerDataModel.cs" />
+    <Compile Include="DataModel\MaintenanceCardDataModel\MaintenanceCardDataModel.cs" />
     <Compile Include="DataModel\SparePartsDataModels\SparePartsDataModel.cs" />
     <Compile Include="Data\AutomobileDbContext.cs" />
     <Compile Include="MainWindow.cs">
