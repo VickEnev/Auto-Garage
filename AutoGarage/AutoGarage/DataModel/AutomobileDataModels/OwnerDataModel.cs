@@ -4,9 +4,15 @@ namespace AutoGarage.DataModel.AutomobileDataModels
 {
     public class OwnerDataModel
     {
-        int Id { get; set; }
-        string TelephoneNumber { get; set; }
-        string Name { get; set; }
-        public List<AutomobileModel> Automobiles { get; set; } 
+        public OwnerDataModel()
+        {
+            Automobiles = new List<AutomobileModel>();
+        }
+
+        public int Id { get; set; }
+        public string TelephoneNumber { get; set; }
+        public string Name { get; set; }
+
+        public virtual List<AutomobileModel> Automobiles { get; set; } 
     }
 }

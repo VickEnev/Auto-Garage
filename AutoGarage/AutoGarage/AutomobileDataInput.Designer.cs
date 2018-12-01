@@ -39,7 +39,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txt_Chassi = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txt_Color = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txt_Volume = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -52,6 +51,7 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.btn_Clear = new System.Windows.Forms.Button();
             this.rtxt_Description = new System.Windows.Forms.RichTextBox();
+            this.cmb_Color = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txt_DRN
@@ -144,13 +144,6 @@
             this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 15;
             this.label8.Text = "Color";
-            // 
-            // txt_Color
-            // 
-            this.txt_Color.Location = new System.Drawing.Point(389, 15);
-            this.txt_Color.Name = "txt_Color";
-            this.txt_Color.Size = new System.Drawing.Size(177, 20);
-            this.txt_Color.TabIndex = 14;
             // 
             // label9
             // 
@@ -251,11 +244,20 @@
             this.rtxt_Description.TabIndex = 28;
             this.rtxt_Description.Text = "";
             // 
+            // cmb_Color
+            // 
+            this.cmb_Color.FormattingEnabled = true;
+            this.cmb_Color.Location = new System.Drawing.Point(389, 19);
+            this.cmb_Color.Name = "cmb_Color";
+            this.cmb_Color.Size = new System.Drawing.Size(177, 21);
+            this.cmb_Color.TabIndex = 29;
+            // 
             // AutomobileDataInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 321);
+            this.Controls.Add(this.cmb_Color);
             this.Controls.Add(this.rtxt_Description);
             this.Controls.Add(this.btn_Clear);
             this.Controls.Add(this.btn_Add);
@@ -269,7 +271,6 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txt_Volume);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.txt_Color);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txt_Chassi);
             this.Controls.Add(this.label6);
@@ -301,7 +302,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txt_Chassi;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txt_Color;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txt_Volume;
         private System.Windows.Forms.Label label10;
@@ -314,5 +314,6 @@
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Button btn_Clear;
         private System.Windows.Forms.RichTextBox rtxt_Description;
+        private System.Windows.Forms.ComboBox cmb_Color;
     }
 }

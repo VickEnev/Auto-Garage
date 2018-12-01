@@ -8,8 +8,10 @@ namespace AutoGarage.DataModel.AutomobileDataModels
 {
     public class CarModelDataModel
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        BrandDataModel CarBrand { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public int CarBrandId { get; set; }
+        public virtual BrandDataModel  CarBrand { get; set; }
     }
 }

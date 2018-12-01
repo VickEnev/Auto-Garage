@@ -11,6 +11,8 @@ namespace AutoGarage.DataModel.AutomobileDataModels
         public int Id { get; set; }
         public string Volume { get; set; }
         public string EngineNumber { get; set; }
-        public CarModelDataModel CarModel { get; set; }
+
+        public int CarModelId { get; set; }
+        public virtual CarModelDataModel CarModel { get; set; }
     }
 }

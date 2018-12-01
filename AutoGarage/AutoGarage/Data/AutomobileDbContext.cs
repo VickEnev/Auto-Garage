@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using AutoGarage.DataModel.AutomobileDataModels;
 using AutoGarage.DataModel.SparePartsDataModels;
+using AutoGarage.DataModel.MaintenanceCardDataModel;
 
 namespace AutoGarage.Data
 {
@@ -31,8 +32,12 @@ namespace AutoGarage.Data
         public DbSet<SparePartsDataModel> Spare_Parts { get; set; }
 
         // Maintenance Cards 
+        public DbSet<MaintenanceCardDataModel> Maintenances { get; set; }
 
+        public AutomobileDbContext() : base()
+        {
 
+        }
 
     }
 }
