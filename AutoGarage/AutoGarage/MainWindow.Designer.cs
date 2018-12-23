@@ -28,113 +28,139 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.TabControl = new System.Windows.Forms.TabControl();
-            this.CarPage = new System.Windows.Forms.TabPage();
-            this.listBox = new System.Windows.Forms.ListBox();
+            this.lb_DataBox = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PartsPage = new System.Windows.Forms.TabPage();
-            this.TabControl.SuspendLayout();
-            this.CarPage.SuspendLayout();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadBrandModelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.slbl_DBStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // TabControl
+            // lb_DataBox
             // 
-            this.TabControl.Controls.Add(this.CarPage);
-            this.TabControl.Controls.Add(this.PartsPage);
-            this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabControl.Location = new System.Drawing.Point(0, 0);
-            this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(865, 511);
-            this.TabControl.TabIndex = 0;
-            // 
-            // CarPage
-            // 
-            this.CarPage.Controls.Add(this.listBox);
-            this.CarPage.Controls.Add(this.menuStrip1);
-            this.CarPage.Location = new System.Drawing.Point(4, 22);
-            this.CarPage.Name = "CarPage";
-            this.CarPage.Padding = new System.Windows.Forms.Padding(3);
-            this.CarPage.Size = new System.Drawing.Size(857, 485);
-            this.CarPage.TabIndex = 0;
-            this.CarPage.Text = "Car Page";
-            this.CarPage.UseVisualStyleBackColor = true;
-            // 
-            // listBox
-            // 
-            this.listBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox.FormattingEnabled = true;
-            this.listBox.Location = new System.Drawing.Point(3, 27);
-            this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(851, 455);
-            this.listBox.TabIndex = 3;
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.lb_DataBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_DataBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_DataBox.FormattingEnabled = true;
+            this.lb_DataBox.ItemHeight = 20;
+            this.lb_DataBox.Location = new System.Drawing.Point(0, 24);
+            this.lb_DataBox.Name = "lb_DataBox";
+            this.lb_DataBox.Size = new System.Drawing.Size(865, 487);
+            this.lb_DataBox.TabIndex = 0;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
-            this.deleteToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.optionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(851, 24);
-            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Size = new System.Drawing.Size(865, 24);
+            this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // addToolStripMenuItem
             // 
+            this.addToolStripMenuItem.Enabled = false;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.addToolStripMenuItem.Text = "Add ";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Enabled = false;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
             // 
             // deleteToolStripMenuItem
             // 
+            this.deleteToolStripMenuItem.Enabled = false;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
-            // PartsPage
+            // optionsToolStripMenuItem
             // 
-            this.PartsPage.Location = new System.Drawing.Point(4, 22);
-            this.PartsPage.Name = "PartsPage";
-            this.PartsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.PartsPage.Size = new System.Drawing.Size(857, 485);
-            this.PartsPage.TabIndex = 1;
-            this.PartsPage.Text = "Parts";
-            this.PartsPage.UseVisualStyleBackColor = true;
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadBrandModelsToolStripMenuItem,
+            this.loadColorsToolStripMenuItem});
+            this.optionsToolStripMenuItem.Enabled = false;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // Form1
+            // loadBrandModelsToolStripMenuItem
+            // 
+            this.loadBrandModelsToolStripMenuItem.Name = "loadBrandModelsToolStripMenuItem";
+            this.loadBrandModelsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.loadBrandModelsToolStripMenuItem.Text = "Load Brand and Models";
+            this.loadBrandModelsToolStripMenuItem.Click += new System.EventHandler(this.loadBrandModelsToolStripMenuItem_Click);
+            // 
+            // loadColorsToolStripMenuItem
+            // 
+            this.loadColorsToolStripMenuItem.Name = "loadColorsToolStripMenuItem";
+            this.loadColorsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.loadColorsToolStripMenuItem.Text = "Load Colors";
+            this.loadColorsToolStripMenuItem.Click += new System.EventHandler(this.loadColorsToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.slbl_DBStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 489);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(865, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // slbl_DBStatus
+            // 
+            this.slbl_DBStatus.Name = "slbl_DBStatus";
+            this.slbl_DBStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(865, 511);
-            this.Controls.Add(this.TabControl);
-            this.Name = "Form1";
-            this.Text = "Auto Shop";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.lb_DataBox);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Garage Pal";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.TabControl.ResumeLayout(false);
-            this.CarPage.ResumeLayout(false);
-            this.CarPage.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl TabControl;
-        private System.Windows.Forms.TabPage CarPage;
-        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.ListBox lb_DataBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.TabPage PartsPage;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadBrandModelsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadColorsToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel slbl_DBStatus;
     }
 }
 

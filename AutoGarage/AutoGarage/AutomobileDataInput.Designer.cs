@@ -35,12 +35,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txt_Year = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txt_Engine = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txt_Chassi = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txt_Volume = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txt_Owner = new System.Windows.Forms.TextBox();
@@ -52,6 +49,7 @@
             this.btn_Clear = new System.Windows.Forms.Button();
             this.rtxt_Description = new System.Windows.Forms.RichTextBox();
             this.cmb_Color = new System.Windows.Forms.ComboBox();
+            this.cmb_Engine = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txt_DRN
@@ -109,16 +107,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(17, 174);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.Size = new System.Drawing.Size(40, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Engine #";
-            // 
-            // txt_Engine
-            // 
-            this.txt_Engine.Location = new System.Drawing.Point(88, 174);
-            this.txt_Engine.Name = "txt_Engine";
-            this.txt_Engine.Size = new System.Drawing.Size(186, 20);
-            this.txt_Engine.TabIndex = 10;
+            this.label6.Text = "Engine";
             // 
             // label7
             // 
@@ -145,26 +136,10 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Color";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(307, 57);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(42, 13);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Volume";
-            // 
-            // txt_Volume
-            // 
-            this.txt_Volume.Location = new System.Drawing.Point(389, 54);
-            this.txt_Volume.Name = "txt_Volume";
-            this.txt_Volume.Size = new System.Drawing.Size(177, 20);
-            this.txt_Volume.TabIndex = 16;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(307, 181);
+            this.label10.Location = new System.Drawing.Point(307, 145);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(60, 13);
             this.label10.TabIndex = 19;
@@ -173,7 +148,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(307, 96);
+            this.label11.Location = new System.Drawing.Point(307, 60);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 13);
             this.label11.TabIndex = 21;
@@ -181,7 +156,7 @@
             // 
             // txt_Owner
             // 
-            this.txt_Owner.Location = new System.Drawing.Point(389, 96);
+            this.txt_Owner.Location = new System.Drawing.Point(389, 60);
             this.txt_Owner.Name = "txt_Owner";
             this.txt_Owner.Size = new System.Drawing.Size(177, 20);
             this.txt_Owner.TabIndex = 20;
@@ -189,7 +164,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(307, 139);
+            this.label12.Location = new System.Drawing.Point(307, 103);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(68, 13);
             this.label12.TabIndex = 23;
@@ -197,7 +172,7 @@
             // 
             // txt_Telephone
             // 
-            this.txt_Telephone.Location = new System.Drawing.Point(389, 139);
+            this.txt_Telephone.Location = new System.Drawing.Point(389, 103);
             this.txt_Telephone.Name = "txt_Telephone";
             this.txt_Telephone.Size = new System.Drawing.Size(177, 20);
             this.txt_Telephone.TabIndex = 22;
@@ -209,14 +184,17 @@
             this.cmb_Brand.Name = "cmb_Brand";
             this.cmb_Brand.Size = new System.Drawing.Size(188, 21);
             this.cmb_Brand.TabIndex = 24;
+            this.cmb_Brand.SelectedIndexChanged += new System.EventHandler(this.cmb_Brand_SelectedIndexChanged);
             // 
             // cmb_Model
             // 
+            this.cmb_Model.Enabled = false;
             this.cmb_Model.FormattingEnabled = true;
             this.cmb_Model.Location = new System.Drawing.Point(88, 95);
             this.cmb_Model.Name = "cmb_Model";
             this.cmb_Model.Size = new System.Drawing.Size(186, 21);
             this.cmb_Model.TabIndex = 25;
+            this.cmb_Model.SelectedIndexChanged += new System.EventHandler(this.cmb_Model_SelectedIndexChanged);
             // 
             // btn_Add
             // 
@@ -226,6 +204,7 @@
             this.btn_Add.TabIndex = 26;
             this.btn_Add.Text = "Add";
             this.btn_Add.UseVisualStyleBackColor = true;
+            this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // btn_Clear
             // 
@@ -235,12 +214,13 @@
             this.btn_Clear.TabIndex = 27;
             this.btn_Clear.Text = "Clear";
             this.btn_Clear.UseVisualStyleBackColor = true;
+            this.btn_Clear.Click += new System.EventHandler(this.btn_Clear_Click);
             // 
             // rtxt_Description
             // 
-            this.rtxt_Description.Location = new System.Drawing.Point(389, 171);
+            this.rtxt_Description.Location = new System.Drawing.Point(389, 135);
             this.rtxt_Description.Name = "rtxt_Description";
-            this.rtxt_Description.Size = new System.Drawing.Size(177, 64);
+            this.rtxt_Description.Size = new System.Drawing.Size(177, 100);
             this.rtxt_Description.TabIndex = 28;
             this.rtxt_Description.Text = "";
             // 
@@ -251,12 +231,24 @@
             this.cmb_Color.Name = "cmb_Color";
             this.cmb_Color.Size = new System.Drawing.Size(177, 21);
             this.cmb_Color.TabIndex = 29;
+            this.cmb_Color.SelectedIndexChanged += new System.EventHandler(this.ComboBoxItemSelected);
+            // 
+            // cmb_Engine
+            // 
+            this.cmb_Engine.Enabled = false;
+            this.cmb_Engine.FormattingEnabled = true;
+            this.cmb_Engine.Location = new System.Drawing.Point(88, 171);
+            this.cmb_Engine.Name = "cmb_Engine";
+            this.cmb_Engine.Size = new System.Drawing.Size(188, 21);
+            this.cmb_Engine.TabIndex = 30;
+            this.cmb_Engine.SelectedIndexChanged += new System.EventHandler(this.ComboBoxItemSelected);
             // 
             // AutomobileDataInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 321);
+            this.Controls.Add(this.cmb_Engine);
             this.Controls.Add(this.cmb_Color);
             this.Controls.Add(this.rtxt_Description);
             this.Controls.Add(this.btn_Clear);
@@ -268,13 +260,10 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txt_Owner);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.txt_Volume);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txt_Chassi);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txt_Engine);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txt_Year);
             this.Controls.Add(this.label4);
@@ -282,8 +271,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_DRN);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
             this.Name = "AutomobileDataInput";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Automobile Input";
+            this.Load += new System.EventHandler(this.AutomobileDataInput_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,12 +290,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_Year;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txt_Engine;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txt_Chassi;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txt_Volume;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txt_Owner;
@@ -315,5 +304,6 @@
         private System.Windows.Forms.Button btn_Clear;
         private System.Windows.Forms.RichTextBox rtxt_Description;
         private System.Windows.Forms.ComboBox cmb_Color;
+        private System.Windows.Forms.ComboBox cmb_Engine;
     }
 }
