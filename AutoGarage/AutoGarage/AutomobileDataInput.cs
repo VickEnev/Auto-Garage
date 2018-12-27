@@ -14,17 +14,21 @@ using AutoGarage.DataModel.SaveTokens;
 
 namespace AutoGarage
 {
+    /// <summary>
+    /// Adds or Updates an Automobile
+    /// </summary>
     public partial class AutomobileDataInput : Form
     {
-      
+
         private MiscController miscController { get; set; }
         private AutomobileController automobileController { get; set; }
+        private AutomobileDataModel Model { get; set; }
 
         public AutomobileDataInput()
         {
             InitializeComponent();
-            
         }
+
 
         public AutomobileDataInput(MiscController miscController, AutomobileController automobileController)
         {
@@ -33,10 +37,51 @@ namespace AutoGarage
             this.automobileController = automobileController;
         }
 
+        /// <summary>
+        /// Update Constructor. Call if you want to load an automobile for updates. 
+        /// </summary>
+        /// <param name="miscController">Controller for small operations - side table controller</param>
+        /// <param name="automobileController">Controller for the automobile table.</param>
+        /// <param name="Model">The AutomobileDataModel you are going to update.</param>
+        public AutomobileDataInput(MiscController miscController, AutomobileController automobileController, AutomobileDataModel Model)
+        {
+            InitializeComponent();
+            this.miscController = miscController;
+            this.automobileController = automobileController;
+            this.Model = Model;
+        }
+
+        /// <summary>
+        /// Loads Information from the Data Model to the form fields. Only usable when there is a model.
+        /// </summary>
+        private void UpdateFormFields()
+        {
+            if (Model != null)
+            {
+
+                txt_DRN.Text = Model.DRN;
+                cmb_Brand.Text = Model.Engine.CarModel.CarBrand.Name;
+                LoadModels(Model.Engine.CarModel.CarBrand.Name);
+                cmb_Model.Text = Model.Engine.CarModel.Name;
+                LoadEngines(Model.Engine.CarModel.Name);
+                txt_Year.Text = Model.Year.ToString();
+                cmb_Engine.Text = (new EngineViewModel()
+                { Volume = Model.Engine.Volume, EngineNumber = Model.Engine.EngineNumber, Id = Model.Engine.Id }).ToString();
+                txt_Chassi.Text = Model.ChassiNumber;
+                cmb_Color.SelectedIndex = Model.ColorId - 1;
+                txt_Owner.Text = Model.Owner.Name;
+                txt_Telephone.Text = Model.Owner.TelephoneNumber;
+                rtxt_Description.Text = Model.Description;
+
+                btn_Add.Text = "Update";
+                btn_Clear.Visible = false;
+            }
+        }
 
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
+
             var token = new AutomobileSaveToken()
             {
                 DRN = txt_DRN.Text,
@@ -49,15 +94,19 @@ namespace AutoGarage
                 Description = rtxt_Description.Text
             };
 
+            if (Model == null)
+                automobileController.SaveAutomobile(token);
+            else
+                automobileController.UpdateAutomobile(token, Model);
+              
 
-            automobileController.SaveAutomobile(token);
 
             this.Close();
         }
 
         private void btn_Clear_Click(object sender, EventArgs e)
         {
-            foreach(var c in this.Controls)
+            foreach (var c in this.Controls)
             {
                 var type = c.GetType();
                 if (type.Name == "TextBox")
@@ -77,12 +126,14 @@ namespace AutoGarage
         private void LoadDataIntoComboBoxes()
         {
             cmb_Brand.Items.AddRange(miscController.GetAllBrands().ToArray());
-            cmb_Color.Items.AddRange(miscController.GetAllColors().ToArray());     
+            cmb_Color.Items.AddRange(miscController.GetAllColors().ToArray());
+            UpdateFormFields();
         }
 
         private void LoadEngines(string modelName)
         {
             cmb_Engine.Items.Clear();
+            cmb_Engine.Enabled = true;
             var engines = miscController.GetAllEnginesByModel(modelName);
             if (engines != null)
             {
@@ -90,6 +141,15 @@ namespace AutoGarage
             }
             cmb_Engine.Items.Add("Add New Engine");
         }
+
+        private void LoadModels(string brandName)
+        {
+            cmb_Model.Items.Clear();
+            cmb_Model.Enabled = true;
+            var models = miscController.GetAllModels(brandName);
+            cmb_Model.Items.AddRange(models.ToArray());
+        }
+
 
         private void ComboBoxItemSelected(object sender, EventArgs args)
         {
@@ -99,7 +159,7 @@ namespace AutoGarage
                 {
                     if ((string)(((ComboBox)sender).SelectedItem) == "Add New Engine")
                     {
-                        var EngineDialog = new EngineDialog(((CarModelViewModel)cmb_Model.SelectedItem).Name, 
+                        var EngineDialog = new EngineDialog(((CarModelViewModel)cmb_Model.SelectedItem).Name,
                             cmb_Brand.SelectedItem.ToString(),
                             miscController);
 
@@ -111,34 +171,28 @@ namespace AutoGarage
                         }
                     }
                 }
-                catch (InvalidCastException)
-                {
-
-                }
-               
+                catch (InvalidCastException) { }
             }
         }
 
         private void cmb_Brand_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cmb_Brand.SelectedIndex != -1)
+            if (cmb_Brand.SelectedIndex != -1)
             {
-                cmb_Model.Items.Clear();
-                cmb_Model.Enabled = true;
-                var models = miscController.GetAllModels(cmb_Brand.SelectedItem.ToString());
-                cmb_Model.Items.AddRange(models.ToArray());               
+                LoadModels(cmb_Brand.SelectedItem.ToString());
             }
         }
 
         private void cmb_Model_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cmb_Model.SelectedIndex != -1 )
+            if (cmb_Model.SelectedIndex != -1)
             {
-                cmb_Engine.Items.Clear();
                 LoadEngines(cmb_Model.SelectedItem.ToString());
-                cmb_Engine.Enabled = true;
             }
         }
+
+
+
     }
 
 

@@ -38,6 +38,8 @@
             this.loadColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.slbl_DBStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noname = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -52,10 +54,13 @@
             this.lb_DataBox.Name = "lb_DataBox";
             this.lb_DataBox.Size = new System.Drawing.Size(865, 487);
             this.lb_DataBox.TabIndex = 0;
+            this.lb_DataBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lb_DataBox_MouseDoubleClick);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.noname,
             this.addToolStripMenuItem,
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem,
@@ -80,6 +85,7 @@
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -87,6 +93,7 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -127,6 +134,20 @@
             this.slbl_DBStatus.Name = "slbl_DBStatus";
             this.slbl_DBStatus.Size = new System.Drawing.Size(0, 17);
             // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // noname
+            // 
+            this.noname.Enabled = false;
+            this.noname.Name = "noname";
+            this.noname.Size = new System.Drawing.Size(28, 20);
+            this.noname.Text = " | ";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,6 +182,8 @@
         private System.Windows.Forms.ToolStripMenuItem loadColorsToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel slbl_DBStatus;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noname;
     }
 }
 

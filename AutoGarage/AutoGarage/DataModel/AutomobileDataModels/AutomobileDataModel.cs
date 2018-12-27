@@ -12,11 +12,6 @@ namespace AutoGarage.DataModel.AutomobileDataModels
     public class AutomobileDataModel
     {
 
-        public AutomobileDataModel()
-        {
-            maintenanceCards = new List<MaintenanceCardDataModel.MaintenanceCardDataModel>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -36,8 +31,8 @@ namespace AutoGarage.DataModel.AutomobileDataModels
         public virtual ColorDataModel Color { get; set; }
         public int ColorId { get; set; }
 
-
-        public virtual List<MaintenanceCardDataModel.MaintenanceCardDataModel> maintenanceCards { get; set; }
+        public int MaintenanceCardId { get; set; }
+        public virtual MaintenanceCardDataModel.MaintenanceCardDataModel MaintenanceCard { get; set; }
 
         public bool IsDeleted { get; set; }
     }

@@ -20,7 +20,7 @@ namespace AutoGarage
         public EngineDataModel EngineModel { get; set; }
         private string CarModelName { get; set; }
         private string BrandName { get; set; }
-        private MiscController miscController { get; set; } 
+        private MiscController miscController { get; set; }
 
 
         public EngineDialog()
@@ -43,16 +43,17 @@ namespace AutoGarage
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            if (tb_engCode.Text != "" && tb_engVolume.Text != "")
+            int hp;
+            if (tb_engCode.Text != "" && tb_engVolume.Text != "" && int.TryParse(tb_horsePower.Text, out hp))
             {
-              
                 var carModel = miscController.GetModelByName(CarModelName, BrandName);
                 EngineModel = new EngineDataModel()
                 {
                     EngineNumber = tb_engCode.Text,
                     Volume = tb_engVolume.Text,
                     CarModel = carModel,
-                    CarModelId = carModel.Id
+                    CarModelId = carModel.Id,
+                    Horsepower = hp
                 };
             }
             else
@@ -66,6 +67,6 @@ namespace AutoGarage
             this.Close();
         }
 
-       
+
     }
 }

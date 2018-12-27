@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoGarage.Controller;
+using AutoGarage.ViewModels;
 
 namespace AutoGarage
 {
@@ -24,13 +25,11 @@ namespace AutoGarage
         private void Form1_Load(object sender, EventArgs e)
         {
             slbl_DBStatus.Text = "Database Connection: Connecting...";
-            Task t = new Task(() => LoadData());
-            t.Start();
+            refreshToolStripMenuItem_Click(sender, e);
         }
 
         private void LoadData()
-        {
-           
+        {           
             var db = new Data.DatabaseController();
             var ex = new Exception();
             if(!db.CreateIfNotExists(out ex))
@@ -50,8 +49,7 @@ namespace AutoGarage
                     slbl_DBStatus.Text = "Database Connection: Connected!";
                     EnableMenuStrip();
                 }));
-            }
-           
+            }          
         } 
 
 
@@ -62,8 +60,7 @@ namespace AutoGarage
             {              
                 this.Invoke(new Action(() =>
                 {
-                    lb_DataBox.Items.Add($"Reg.#: {s.DRN} / Vehicle Model: {s.ModelName}");
-
+                    lb_DataBox.Items.Add(s);
                 }));
                     
             }
@@ -73,7 +70,9 @@ namespace AutoGarage
         {
             foreach(var c in menuStrip1.Items)
             {
-                ((ToolStripMenuItem)c).Enabled = true;
+                var strip = ((ToolStripMenuItem)c);
+                if(strip.Name != "noname")
+                strip.Enabled = true;
             }
         }
 
@@ -91,12 +90,52 @@ namespace AutoGarage
         {
             var dbInfoLoader = new Data.DatabaseInfoLoader(Application.StartupPath, Dependancies.MiscController);
             dbInfoLoader.LoadBrandsAndModels();
+            MessageBox.Show("Brand & Models Loaded!","Done",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
         private void loadColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dbInfoLoader = new Data.DatabaseInfoLoader(Application.StartupPath, Dependancies.MiscController);
             dbInfoLoader.LoadColorsFromFile();
+            MessageBox.Show("Colors Loaded!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
+            var model = Dependancies.AutomobileController.LoadAutomobile(selected);
+
+            AutomobileDataInput automobileDataInput = new AutomobileDataInput(Dependancies.MiscController,
+             Dependancies.AutomobileController, model);
+            automobileDataInput.ShowDialog();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
+                Dependancies.AutomobileController.DeleteAutomobile(selected);
+            }
+            catch (Exception ex) { }
+         
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lb_DataBox.Items.Clear();
+            Task t = new Task(() => LoadData());
+            t.Start();
+        }
+
+        private void lb_DataBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
+                
+            }
+            catch (Exception ex) { }
         }
     }
 }

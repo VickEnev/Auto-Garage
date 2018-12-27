@@ -24,19 +24,20 @@ namespace AutoGarage.Controller
             var result = new List<CarViewModel>();
             try
             {
-
                 foreach (var a in context.Automobiles)
                 {
                     try
                     {
-                        CarModelDataModel carModel;
-                        if (a.Engine.CarModel == null)
-                            carModel = MapIdToClass(a.Engine.CarModelId);
-                        else
-                            carModel = a.Engine.CarModel;
+                        if (!a.IsDeleted)
+                        {
+                            CarModelDataModel carModel;
+                            if (a.Engine.CarModel == null)
+                                carModel = MapIdToClass(a.Engine.CarModelId);
+                            else
+                                carModel = a.Engine.CarModel;
 
-                        result.Add(new CarViewModel() { DRN = a.DRN, ModelName = carModel.Name });
-                     
+                            result.Add(new CarViewModel() { DRN = a.DRN, ModelName = carModel.Name, ID = a.Id });
+                        }
                     }
                     catch (Exception e)
                     {
@@ -44,8 +45,6 @@ namespace AutoGarage.Controller
                     }
 
                 }
-
-
             }
             catch (NullReferenceException n)
             {
@@ -69,12 +68,25 @@ namespace AutoGarage.Controller
         public void SaveAutomobile(AutomobileSaveToken token)
         {
             var model = MakeModelFromToken(token);
-            context.Automobiles.Add(model);
-            context.SaveChanges();
+            var mc = new DataModel.MaintenanceCardDataModel.MaintenanceCardDataModel()
+            {
+                DateOfArrival = DateTime.Now,
+                DateOfDeparture = new DateTime(),
+                Description = "",
+                EmployeeName = "",
+                Parts = new List<DataModel.SparePartsDataModels.SparePartsDataModel>(),
+                TotalPrice = 0
+            };
 
+
+            model.MaintenanceCard = mc;
+            model.MaintenanceCardId = mc.Id;
+
+            context.Automobiles.Add(model);      
+            context.SaveChanges();
         }
 
-        public AutomobileDataModel MakeModelFromToken(AutomobileSaveToken token)
+        private AutomobileDataModel MakeModelFromToken(AutomobileSaveToken token)
         {
             OwnerDataModel owner = null;
             AutomobileDataModel result = new AutomobileDataModel();
@@ -107,12 +119,56 @@ namespace AutoGarage.Controller
             result.Owner = owner;
             result.OwnerId = owner.Id;
             result.Year = token.Year;
-            owner.Automobiles.Add(result);
+
+            if (!owner.Automobiles.Contains(result))
+                owner.Automobiles.Add(result);
 
             return result;
         }
 
+        public AutomobileDataModel LoadAutomobile(int Id)
+        { 
+            return context.Automobiles.FirstOrDefault(a => a.Id == Id);
+        }
 
+        public void UpdateAutomobile(AutomobileSaveToken token, AutomobileDataModel model)
+        {
+            var updatedModel = MakeModelFromToken(token);
+            updatedModel.Id = model.Id;
+            var _model = context.Automobiles.FirstOrDefault(a => a.Id == model.Id);
+            if (_model != null)
+            {
+                _model.ChassiNumber = updatedModel.ChassiNumber;
+                _model.Color = updatedModel.Color;
+                _model.ColorId = updatedModel.ColorId;
+                _model.Description = updatedModel.Description;
+                _model.DRN = updatedModel.DRN;
+                _model.Engine = updatedModel.Engine;
+                _model.EngineId = updatedModel.EngineId;
+                _model.IsDeleted = updatedModel.IsDeleted;
+                _model.Owner = updatedModel.Owner;
+                _model.OwnerId = updatedModel.OwnerId;
+                _model.Year = updatedModel.Year;
+            }
+            context.Configuration.AutoDetectChangesEnabled = false;
+            context.Entry(_model).State = System.Data.Entity.EntityState.Modified;
+            
+            context.SaveChanges();
+            context.Configuration.AutoDetectChangesEnabled = true;
+        }
+
+        public void DeleteAutomobile(int Id)
+        {
+            var model = context.Automobiles.FirstOrDefault(a=> a.Id == Id);
+            model.IsDeleted = true;
+            context.Configuration.AutoDetectChangesEnabled = false;
+            context.Entry(model).State = System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+            context.Configuration.AutoDetectChangesEnabled = true;
+        }
+
+       
 
     }
 }

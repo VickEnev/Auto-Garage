@@ -239,7 +239,7 @@
             this.cmb_Engine.FormattingEnabled = true;
             this.cmb_Engine.Location = new System.Drawing.Point(88, 171);
             this.cmb_Engine.Name = "cmb_Engine";
-            this.cmb_Engine.Size = new System.Drawing.Size(188, 21);
+            this.cmb_Engine.Size = new System.Drawing.Size(186, 21);
             this.cmb_Engine.TabIndex = 30;
             this.cmb_Engine.SelectedIndexChanged += new System.EventHandler(this.ComboBoxItemSelected);
             // 

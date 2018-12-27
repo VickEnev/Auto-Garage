@@ -34,7 +34,7 @@ namespace AutoGarage.Controller
                     return result;
                 }
             }
-            catch(Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
+            catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
 
 
             return null;
@@ -59,7 +59,7 @@ namespace AutoGarage.Controller
 
             }
             catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
-           
+
 
             return null;
         }
@@ -85,7 +85,7 @@ namespace AutoGarage.Controller
 
             }
             catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
-           
+
 
             return null;
         }
@@ -105,7 +105,7 @@ namespace AutoGarage.Controller
                 }
             }
             catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
-          
+
 
 
             return null;
@@ -127,7 +127,7 @@ namespace AutoGarage.Controller
                 }
             }
             catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
-           
+
 
 
             return null;
@@ -165,26 +165,20 @@ namespace AutoGarage.Controller
 
         public void WriteBrandDataModelToDatabase(List<BrandDataModel> models)
         {
-
             Context.Brands.AddRange(models);
             Context.SaveChanges();
-
         }
 
         public void WriteCarModelsDataModelsToDatabase(List<CarModelDataModel> models)
         {
-
             Context.Models.AddRange(models);
             Context.SaveChanges();
-
         }
 
         public void WriteEngineDataModelToDatabase(EngineDataModel model)
         {
-
             Context.Engines.Add(model);
             Context.SaveChanges();
-
         }
 
 
