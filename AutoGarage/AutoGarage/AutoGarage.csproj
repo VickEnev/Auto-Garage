@@ -115,6 +115,7 @@
     <Compile Include="ViewModels\CarViewModel.cs" />
     <Compile Include="ViewModels\ColorViewModel.cs" />
     <Compile Include="ViewModels\EngineViewModel.cs" />
+    <Compile Include="ViewModels\ServiceHistoryViewModel.cs" />
     <EmbeddedResource Include="AutomobileDataInput.resx">
       <DependentUpon>AutomobileDataInput.cs</DependentUpon>
     </EmbeddedResource>

@@ -168,7 +168,7 @@
             this.Controls.Add(this.lb_MH);
             this.Name = "ServiceHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ServiceHistory";
+            this.Text = "Service History";
             this.Load += new System.EventHandler(this.ServiceHistory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

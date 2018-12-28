@@ -34,5 +34,10 @@ namespace AutoGarage
         {
           
         }
+
+        private void LoadServiceHistory()
+        {
+
+        }
     }
 }

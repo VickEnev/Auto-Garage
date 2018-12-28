@@ -70,8 +70,6 @@ namespace AutoGarage.Controller
             var model = MakeModelFromToken(token);
             var mc = new DataModel.MaintenanceCardDataModel.MaintenanceCardDataModel()
             {
-                DateOfArrival = DateTime.Now,
-                DateOfDeparture = new DateTime(),
                 Description = "",
                 EmployeeName = "",
                 Parts = new List<DataModel.SparePartsDataModels.SparePartsDataModel>(),
@@ -168,6 +166,9 @@ namespace AutoGarage.Controller
             context.Configuration.AutoDetectChangesEnabled = true;
         }
 
+
+
+        
        
 
     }

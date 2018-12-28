@@ -133,7 +133,8 @@ namespace AutoGarage
             try
             {
                 var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
-                
+                ServiceHistory serviceHistory = new ServiceHistory(selected, Dependancies.AutomobileController, Dependancies.MiscController);
+                serviceHistory.ShowDialog();
             }
             catch (Exception ex) { }
         }

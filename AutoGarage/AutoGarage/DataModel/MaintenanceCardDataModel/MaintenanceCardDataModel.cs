@@ -14,8 +14,8 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
         public MaintenanceCardDataModel()
         {
             Parts = new List<SparePartsDataModels.SparePartsDataModel>();
-            DateOfArrival = new DateTime();
-            DateOfDeparture = new DateTime();
+            DateOfArrival = DateTime.Now;
+            DateOfDeparture = DateTime.Now;
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
