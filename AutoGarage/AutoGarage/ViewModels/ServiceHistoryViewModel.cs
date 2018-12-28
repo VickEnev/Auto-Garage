@@ -19,6 +19,5 @@ namespace AutoGarage.ViewModels
 
         public int HP { get; set; }
 
-
     }
 }

@@ -29,6 +29,6 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
         public string EmployeeName { get; set; }
         public virtual List<SparePartsDataModels.SparePartsDataModel> Parts { get; set; }
         public decimal TotalPrice { get; set; }
-        
+        public bool Finished { get; set; }
     }
 }

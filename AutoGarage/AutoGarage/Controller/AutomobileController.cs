@@ -6,17 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoGarage.DataModel.AutomobileDataModels;
 using AutoGarage.DataModel.SaveTokens;
+using AutoGarage.DataModel.MaintenanceCardDataModel;
 
 namespace AutoGarage.Controller
 {
     public class AutomobileController
     {
-
         private Data.AutomobileDbContext context { get; set; }
 
         public AutomobileController(Data.AutomobileDbContext context)
         {
             this.context = context;
+        }
+
+        public AutomobileDataModel GetAutomobileDataModel(int Id)
+        {
+            return context.Automobiles.FirstOrDefault(a => a.Id == Id);
         }
 
         public List<CarViewModel> getCarViewModel()
@@ -73,14 +78,15 @@ namespace AutoGarage.Controller
                 Description = "",
                 EmployeeName = "",
                 Parts = new List<DataModel.SparePartsDataModels.SparePartsDataModel>(),
-                TotalPrice = 0
+                TotalPrice = 0,
+                Finished = false
             };
 
 
             model.MaintenanceCard = mc;
             model.MaintenanceCardId = mc.Id;
 
-            context.Automobiles.Add(model);      
+            context.Automobiles.Add(model);
             context.SaveChanges();
         }
 
@@ -125,7 +131,7 @@ namespace AutoGarage.Controller
         }
 
         public AutomobileDataModel LoadAutomobile(int Id)
-        { 
+        {
             return context.Automobiles.FirstOrDefault(a => a.Id == Id);
         }
 
@@ -150,14 +156,14 @@ namespace AutoGarage.Controller
             }
             context.Configuration.AutoDetectChangesEnabled = false;
             context.Entry(_model).State = System.Data.Entity.EntityState.Modified;
-            
+
             context.SaveChanges();
             context.Configuration.AutoDetectChangesEnabled = true;
         }
 
         public void DeleteAutomobile(int Id)
         {
-            var model = context.Automobiles.FirstOrDefault(a=> a.Id == Id);
+            var model = context.Automobiles.FirstOrDefault(a => a.Id == Id);
             model.IsDeleted = true;
             context.Configuration.AutoDetectChangesEnabled = false;
             context.Entry(model).State = System.Data.Entity.EntityState.Modified;
@@ -167,9 +173,38 @@ namespace AutoGarage.Controller
         }
 
 
+        public ServiceHistoryViewModel GetServiceHistoryViewModel(int id)
+        {
+            var result = new ServiceHistoryViewModel();
+            var auto = context.Automobiles.FirstOrDefault(a => a.Id == id);
+            result.DRN = auto.DRN;
+            result.Brand = new BrandViewModel()
+            {
+                Name = auto.Engine.CarModel.CarBrand.Name,
+                Id = auto.Engine.CarModel.Id
+            };
 
-        
-       
+            result.Model = new CarModelViewModel()
+            {
+                Name = auto.Engine.CarModel.Name,
+                Id = auto.Engine.CarModel.Id
+            };
 
+            result.Volume = auto.Engine.Volume;
+            result.HP = auto.Engine.Horsepower;
+
+            return result;
+        }
+
+        public IList<MaintenanceCardDataModel> GetMaintenanceCardDataModelsByChassisCode(string chassisNumber)
+        {
+            IList<MaintenanceCardDataModel> result = new List<MaintenanceCardDataModel>();
+            foreach(var a in context.Automobiles)
+            {
+                if(a.ChassiNumber == chassisNumber)
+                    result.Add(a.MaintenanceCard);
+            }
+            return result; 
+        }
     }
 }
