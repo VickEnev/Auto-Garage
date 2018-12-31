@@ -49,6 +49,7 @@
             this.lb_MH.Name = "lb_MH";
             this.lb_MH.Size = new System.Drawing.Size(693, 199);
             this.lb_MH.TabIndex = 0;
+            this.lb_MH.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lb_MH_MouseDoubleClick);
             // 
             // label1
             // 

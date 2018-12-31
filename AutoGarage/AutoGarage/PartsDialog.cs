@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AutoGarage
 {
-    public partial class Parts : Form
+    public partial class PartsDialog : Form
     {
-        public Parts()
+        public PartsDialog()
         {
             InitializeComponent();
         }

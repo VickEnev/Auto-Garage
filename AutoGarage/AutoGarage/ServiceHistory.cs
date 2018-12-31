@@ -57,11 +57,11 @@ namespace AutoGarage
                     .GetMaintenanceCardDataModelsByChassisCode(
                     AutomobileController.GetAutomobileDataModel(AutomobileId).ChassiNumber);
 
-                foreach(var c in Cards)
+                foreach (var c in Cards)
                 {
                     DisplayCard(c);
                 }
-               
+
             });
 
             worker.Start();
@@ -73,6 +73,12 @@ namespace AutoGarage
             var f = (card.Finished) ? "Finished" : "Not Finished";
             string d = $"Date of arrival: {card.DateOfArrival.ToShortDateString()} - Maintenance Status: {f}";
             this.Invoke(new Action(() => lb_MH.Items.Add(d)));
+        }
+
+        private void lb_MH_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var card = new Card(AutomobileController, MiscController, Cards[lb_MH.SelectedIndex]);
+            card.ShowDialog();
         }
     }
 }

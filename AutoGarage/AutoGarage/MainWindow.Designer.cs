@@ -30,6 +30,8 @@
         {
             this.lb_DataBox = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noname = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,8 +40,7 @@
             this.loadColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.slbl_DBStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.noname = new System.Windows.Forms.ToolStripMenuItem();
+            this.partsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +72,20 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
+            // noname
+            // 
+            this.noname.Enabled = false;
+            this.noname.Name = "noname";
+            this.noname.Size = new System.Drawing.Size(28, 20);
+            this.noname.Text = " | ";
+            // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Enabled = false;
@@ -99,11 +114,12 @@
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadBrandModelsToolStripMenuItem,
-            this.loadColorsToolStripMenuItem});
+            this.loadColorsToolStripMenuItem,
+            this.partsToolStripMenuItem});
             this.optionsToolStripMenuItem.Enabled = false;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Text = "Settings";
             // 
             // loadBrandModelsToolStripMenuItem
             // 
@@ -134,19 +150,11 @@
             this.slbl_DBStatus.Name = "slbl_DBStatus";
             this.slbl_DBStatus.Size = new System.Drawing.Size(0, 17);
             // 
-            // refreshToolStripMenuItem
+            // partsToolStripMenuItem
             // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // noname
-            // 
-            this.noname.Enabled = false;
-            this.noname.Name = "noname";
-            this.noname.Size = new System.Drawing.Size(28, 20);
-            this.noname.Text = " | ";
+            this.partsToolStripMenuItem.Name = "partsToolStripMenuItem";
+            this.partsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.partsToolStripMenuItem.Text = "View All Parts";
             // 
             // MainWindow
             // 
@@ -184,6 +192,7 @@
         private System.Windows.Forms.ToolStripStatusLabel slbl_DBStatus;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noname;
+        private System.Windows.Forms.ToolStripMenuItem partsToolStripMenuItem;
     }
 }
 

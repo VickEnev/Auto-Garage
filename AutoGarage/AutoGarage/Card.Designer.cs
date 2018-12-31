@@ -46,6 +46,8 @@
             this.b_CANCEL = new System.Windows.Forms.Button();
             this.dtp_arrival = new System.Windows.Forms.DateTimePicker();
             this.dtp_departure = new System.Windows.Forms.DateTimePicker();
+            this.rtb_Description = new System.Windows.Forms.RichTextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -60,7 +62,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 50);
+            this.label2.Location = new System.Drawing.Point(28, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 1;
@@ -78,7 +80,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 111);
+            this.label4.Location = new System.Drawing.Point(28, 114);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 13);
             this.label4.TabIndex = 3;
@@ -87,7 +89,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 181);
+            this.label5.Location = new System.Drawing.Point(28, 147);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 13);
             this.label5.TabIndex = 4;
@@ -96,16 +98,16 @@
             // lbl_PPrice
             // 
             this.lbl_PPrice.AutoSize = true;
-            this.lbl_PPrice.Location = new System.Drawing.Point(99, 181);
+            this.lbl_PPrice.Location = new System.Drawing.Point(121, 147);
             this.lbl_PPrice.Name = "lbl_PPrice";
-            this.lbl_PPrice.Size = new System.Drawing.Size(35, 13);
+            this.lbl_PPrice.Size = new System.Drawing.Size(58, 13);
             this.lbl_PPrice.TabIndex = 5;
-            this.lbl_PPrice.Text = "label6";
+            this.lbl_PPrice.Text = "000.00 лв.";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 224);
+            this.label7.Location = new System.Drawing.Point(28, 187);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 6;
@@ -136,7 +138,7 @@
             // 
             // tb_labour
             // 
-            this.tb_labour.Location = new System.Drawing.Point(102, 217);
+            this.tb_labour.Location = new System.Drawing.Point(124, 180);
             this.tb_labour.Name = "tb_labour";
             this.tb_labour.Size = new System.Drawing.Size(100, 20);
             this.tb_labour.TabIndex = 12;
@@ -153,37 +155,41 @@
             // 
             this.b_ADD.Location = new System.Drawing.Point(451, 277);
             this.b_ADD.Name = "b_ADD";
-            this.b_ADD.Size = new System.Drawing.Size(75, 23);
+            this.b_ADD.Size = new System.Drawing.Size(65, 23);
             this.b_ADD.TabIndex = 14;
-            this.b_ADD.Text = "ADD";
+            this.b_ADD.Text = "Add";
             this.b_ADD.UseVisualStyleBackColor = true;
+            this.b_ADD.Click += new System.EventHandler(this.b_ADD_Click);
             // 
             // b_Remove
             // 
             this.b_Remove.Location = new System.Drawing.Point(542, 277);
             this.b_Remove.Name = "b_Remove";
-            this.b_Remove.Size = new System.Drawing.Size(75, 23);
+            this.b_Remove.Size = new System.Drawing.Size(64, 23);
             this.b_Remove.TabIndex = 15;
             this.b_Remove.Text = "Remove";
             this.b_Remove.UseVisualStyleBackColor = true;
+            this.b_Remove.Click += new System.EventHandler(this.b_Remove_Click);
             // 
             // b_OK
             // 
-            this.b_OK.Location = new System.Drawing.Point(12, 370);
+            this.b_OK.Location = new System.Drawing.Point(31, 359);
             this.b_OK.Name = "b_OK";
             this.b_OK.Size = new System.Drawing.Size(75, 23);
             this.b_OK.TabIndex = 16;
-            this.b_OK.Text = "OK";
+            this.b_OK.Text = "Update";
             this.b_OK.UseVisualStyleBackColor = true;
+            this.b_OK.Click += new System.EventHandler(this.b_OK_Click);
             // 
             // b_CANCEL
             // 
-            this.b_CANCEL.Location = new System.Drawing.Point(127, 370);
+            this.b_CANCEL.Location = new System.Drawing.Point(124, 359);
             this.b_CANCEL.Name = "b_CANCEL";
             this.b_CANCEL.Size = new System.Drawing.Size(75, 23);
             this.b_CANCEL.TabIndex = 17;
-            this.b_CANCEL.Text = "CANCEL";
+            this.b_CANCEL.Text = "Cancel";
             this.b_CANCEL.UseVisualStyleBackColor = true;
+            this.b_CANCEL.Click += new System.EventHandler(this.b_CANCEL_Click);
             // 
             // dtp_arrival
             // 
@@ -199,11 +205,30 @@
             this.dtp_departure.Size = new System.Drawing.Size(200, 20);
             this.dtp_departure.TabIndex = 19;
             // 
+            // rtb_Description
+            // 
+            this.rtb_Description.Location = new System.Drawing.Point(124, 223);
+            this.rtb_Description.Name = "rtb_Description";
+            this.rtb_Description.Size = new System.Drawing.Size(200, 96);
+            this.rtb_Description.TabIndex = 20;
+            this.rtb_Description.Text = "";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 226);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 26);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Description\r\nof work done";
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 405);
+            this.ClientSize = new System.Drawing.Size(646, 394);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.rtb_Description);
             this.Controls.Add(this.dtp_departure);
             this.Controls.Add(this.dtp_arrival);
             this.Controls.Add(this.b_CANCEL);
@@ -222,8 +247,12 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Card";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Card";
+            this.Load += new System.EventHandler(this.Card_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,5 +278,7 @@
         private System.Windows.Forms.Button b_CANCEL;
         private System.Windows.Forms.DateTimePicker dtp_arrival;
         private System.Windows.Forms.DateTimePicker dtp_departure;
+        private System.Windows.Forms.RichTextBox rtb_Description;
+        private System.Windows.Forms.Label label6;
     }
 }

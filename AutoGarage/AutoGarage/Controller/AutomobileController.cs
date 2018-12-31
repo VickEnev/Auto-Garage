@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AutoGarage.DataModel.AutomobileDataModels;
 using AutoGarage.DataModel.SaveTokens;
 using AutoGarage.DataModel.MaintenanceCardDataModel;
+using System.Data.Entity.Infrastructure;
 
 namespace AutoGarage.Controller
 {
@@ -154,22 +155,15 @@ namespace AutoGarage.Controller
                 _model.OwnerId = updatedModel.OwnerId;
                 _model.Year = updatedModel.Year;
             }
-            context.Configuration.AutoDetectChangesEnabled = false;
-            context.Entry(_model).State = System.Data.Entity.EntityState.Modified;
-
-            context.SaveChanges();
-            context.Configuration.AutoDetectChangesEnabled = true;
+            EditEntity<AutomobileDataModel>(_model);
         }
 
         public void DeleteAutomobile(int Id)
         {
             var model = context.Automobiles.FirstOrDefault(a => a.Id == Id);
             model.IsDeleted = true;
-            context.Configuration.AutoDetectChangesEnabled = false;
-            context.Entry(model).State = System.Data.Entity.EntityState.Modified;
-
-            context.SaveChanges();
-            context.Configuration.AutoDetectChangesEnabled = true;
+            EditEntity<AutomobileDataModel>(model);
+          
         }
 
 
@@ -205,6 +199,33 @@ namespace AutoGarage.Controller
                     result.Add(a.MaintenanceCard);
             }
             return result; 
+        }
+
+        public string GetOwnerNameByMaintenanceCardId (int id)
+        {
+            return context.Automobiles.First(a => a.MaintenanceCardId == id).Owner.Name;     
+        }
+
+        public void EditMaintenanceCardModel(int id)
+        {
+
+        }
+
+
+        /// <summary>
+        /// Edits the entity "model". Due to a bug in EF when you edit an entity it creates another entry of it in the DB.
+        /// This method goes around that bug. 
+        /// </summary>
+        /// <typeparam name="T">The Type of the Entity</typeparam>
+        /// <param name="model">The Entity you wish to edit</param>
+        private void EditEntity<T>(object model) where T : class
+        {
+            var entity = (T)model;
+            context.Configuration.AutoDetectChangesEnabled = false;
+            context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+            context.Configuration.AutoDetectChangesEnabled = true;
         }
     }
 }
