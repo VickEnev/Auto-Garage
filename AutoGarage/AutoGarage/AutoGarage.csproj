@@ -96,6 +96,12 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="DataModel\AutomobileDataModels\AutomobileDataModel.cs" />
+    <Compile Include="PartsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PartsDialog.Designer.cs">
+      <DependentUpon>PartsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHistory.cs">
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PartsDialog.resx">
+      <DependentUpon>PartsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

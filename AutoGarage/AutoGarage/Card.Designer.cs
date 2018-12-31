@@ -124,8 +124,10 @@
             // 
             // tb_Client
             // 
+            this.tb_Client.BackColor = System.Drawing.Color.White;
             this.tb_Client.Location = new System.Drawing.Point(124, 20);
             this.tb_Client.Name = "tb_Client";
+            this.tb_Client.ReadOnly = true;
             this.tb_Client.Size = new System.Drawing.Size(100, 20);
             this.tb_Client.TabIndex = 8;
             // 
@@ -142,6 +144,7 @@
             this.tb_labour.Name = "tb_labour";
             this.tb_labour.Size = new System.Drawing.Size(100, 20);
             this.tb_labour.TabIndex = 12;
+            this.tb_labour.TextChanged += new System.EventHandler(this.tb_labour_TextChanged);
             // 
             // lb_Parts
             // 

@@ -71,5 +71,44 @@ namespace AutoGarage
         {
 
         }
+
+        private void tb_labour_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void UpdateMaintenanceCard()
+        {
+            var employeeName = tb_Employee.Text;
+            double.TryParse(tb_labour.Text, out double labourPrice);
+            var departureTime = dtp_departure.Value;
+            var arrivalTime = dtp_arrival.Value;
+        }
+
+
+        private bool ValidateInput()
+        {
+            if (dtp_departure.Value > dtp_arrival.Value)
+            {
+                double labourPrice = 0;
+                if (double.TryParse(tb_labour.Text, out labourPrice))
+                {
+                    if (labourPrice > 0)
+                    {
+                        if (rtb_Description.Text != "")
+                        {
+                            if (tb_Employee.Text != "")
+                            {
+                                if (lb_Parts.Items.Count > 0)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
