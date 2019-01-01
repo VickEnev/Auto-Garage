@@ -100,9 +100,9 @@
             this.lbl_PPrice.AutoSize = true;
             this.lbl_PPrice.Location = new System.Drawing.Point(121, 147);
             this.lbl_PPrice.Name = "lbl_PPrice";
-            this.lbl_PPrice.Size = new System.Drawing.Size(58, 13);
+            this.lbl_PPrice.Size = new System.Drawing.Size(69, 13);
             this.lbl_PPrice.TabIndex = 5;
-            this.lbl_PPrice.Text = "000.00 лв.";
+            this.lbl_PPrice.Text = "000.00 BGN.";
             // 
             // label7
             // 

@@ -40,6 +40,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_horsePower = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lb_MH
@@ -150,11 +151,26 @@
             this.lbl_horsePower.TabIndex = 17;
             this.lbl_horsePower.Text = "000";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "With Deleted",
+            "Without Deleted",
+            "Status = Finished",
+            "Status = Not Finished"});
+            this.comboBox1.Location = new System.Drawing.Point(141, 167);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 18;
+            this.comboBox1.Text = "Filter";
+            // 
             // ServiceHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 414);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.lbl_horsePower);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label11);
@@ -190,5 +206,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbl_horsePower;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

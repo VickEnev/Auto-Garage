@@ -83,6 +83,8 @@ namespace AutoGarage
             double.TryParse(tb_labour.Text, out double labourPrice);
             var departureTime = dtp_departure.Value;
             var arrivalTime = dtp_arrival.Value;
+            var description = rtb_Description.Text;
+            
         }
 
 
@@ -111,4 +113,6 @@ namespace AutoGarage
             return false;
         }
     }
+
+    
 }
