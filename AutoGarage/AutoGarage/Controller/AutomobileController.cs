@@ -11,15 +11,10 @@ using System.Data.Entity.Infrastructure;
 
 namespace AutoGarage.Controller
 {
-    public class AutomobileController
+    public class AutomobileController : Controller
     {
-        private Data.AutomobileDbContext context { get; set; }
-
-        public AutomobileController(Data.AutomobileDbContext context)
-        {
-            this.context = context;
-        }
-
+        public AutomobileController(Data.AutomobileDbContext context) : base(context) { }
+      
         public AutomobileDataModel GetAutomobileDataModel(int Id)
         {
             return context.Automobiles.FirstOrDefault(a => a.Id == Id);
@@ -212,20 +207,5 @@ namespace AutoGarage.Controller
         }
 
 
-        /// <summary>
-        /// Edits the entity "model". Due to a bug in EF when you edit an entity it creates another entry of it in the DB.
-        /// This method goes around that bug. 
-        /// </summary>
-        /// <typeparam name="T">The Type of the Entity</typeparam>
-        /// <param name="model">The Entity you wish to edit</param>
-        private void EditEntity<T>(object model) where T : class
-        {
-            var entity = (T)model;
-            context.Configuration.AutoDetectChangesEnabled = false;
-            context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-
-            context.SaveChanges();
-            context.Configuration.AutoDetectChangesEnabled = true;
-        }
     }
 }

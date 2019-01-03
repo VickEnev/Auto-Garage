@@ -30,10 +30,10 @@
         {
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.button1 = new System.Windows.Forms.Button();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
@@ -59,21 +59,13 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(707, 418);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.ToolTipText = "Adds a new part";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -88,6 +80,15 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.ToolTipText = "Deletes the selected part";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(707, 418);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "OK";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // listBox2
             // 

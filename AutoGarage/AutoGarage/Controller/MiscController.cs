@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 using AutoGarage.ViewModels;
 using AutoGarage.Data;
 using AutoGarage.DataModel.AutomobileDataModels;
-
+using AutoGarage.DataModel.SparePartsDataModels;
 
 namespace AutoGarage.Controller
 {
-    public class MiscController
+    public class MiscController : Controller
     {
-        private AutomobileDbContext Context { get; set; }
+    
 
-        public MiscController(AutomobileDbContext context)
+        public MiscController(AutomobileDbContext context) : base (context)
         {
-            this.Context = context;
+            this.context = context;
         }
 
         // read methods 
@@ -24,10 +24,10 @@ namespace AutoGarage.Controller
         {
             try
             {
-                if (Context.Brands != null)
+                if (context.Brands != null)
                 {
                     var result = new List<object>();
-                    foreach (var b in Context.Brands)
+                    foreach (var b in context.Brands)
                     {
                         result.Add(new BrandViewModel() { Id = b.Id, Name = b.Name });
                     }
@@ -47,10 +47,10 @@ namespace AutoGarage.Controller
         {
             try
             {
-                if (Context.Models != null)
+                if (context.Models != null)
                 {
                     var result = new List<CarModelViewModel>();
-                    foreach (var b in Context.Models)
+                    foreach (var b in context.Models)
                     {
                         result.Add(new CarModelViewModel() { Id = b.Id, Name = b.Name });
                     }
@@ -72,10 +72,10 @@ namespace AutoGarage.Controller
         {
             try
             {
-                if (Context.Models != null)
+                if (context.Models != null)
                 {
                     var result = new List<CarModelViewModel>();
-                    foreach (var b in Context.Models)
+                    foreach (var b in context.Models)
                     {
                         if (b.CarBrand.Name == brandName)
                             result.Add(new CarModelViewModel() { Id = b.Id, Name = b.Name });
@@ -94,10 +94,10 @@ namespace AutoGarage.Controller
         {
             try
             {
-                if (Context.Colors != null)
+                if (context.Colors != null)
                 {
                     var result = new List<ColorViewModel>();
-                    foreach (var b in Context.Colors)
+                    foreach (var b in context.Colors)
                     {
                         result.Add(new ColorViewModel() { Id = b.Id, Name = b.Name });
                     }
@@ -116,10 +116,10 @@ namespace AutoGarage.Controller
         {
             try
             {
-                if (Context.Engines != null)
+                if (context.Engines != null)
                 {
                     var result = new List<EngineViewModel>();
-                    foreach (var b in Context.Engines.Where(e => e.CarModel.Name == ModelName))
+                    foreach (var b in context.Engines.Where(e => e.CarModel.Name == ModelName))
                     {
                         result.Add(new EngineViewModel() { Id = b.Id, EngineNumber = b.EngineNumber, Volume = b.Volume });
                     }
@@ -138,7 +138,7 @@ namespace AutoGarage.Controller
             try
             {
                 CarModelDataModel result = new CarModelDataModel();
-                result = Context.Models.FirstOrDefault(m => m.Name == modelName && m.CarBrand.Name == brandName);
+                result = context.Models.FirstOrDefault(m => m.Name == modelName && m.CarBrand.Name == brandName);
                 return result;
             }
             catch (Exception e) { System.Diagnostics.Debug.WriteLine(e.ToString()); }
@@ -149,39 +149,52 @@ namespace AutoGarage.Controller
 
         public void WriteBrandDataModelToDatabase(BrandDataModel model)
         {
-
-            Context.Brands.Add(model);
-            Context.SaveChanges();
-
+            context.Brands.Add(model);
+            context.SaveChanges();
         }
 
         public void WriteColorsDataModelToDatabase(List<ColorDataModel> models)
-        {
-
-            Context.Colors.AddRange(models);
-            Context.SaveChanges();
-
+        { 
+            context.Colors.AddRange(models);
+            context.SaveChanges();
         }
 
         public void WriteBrandDataModelToDatabase(List<BrandDataModel> models)
         {
-            Context.Brands.AddRange(models);
-            Context.SaveChanges();
+            context.Brands.AddRange(models);
+            context.SaveChanges();
         }
 
         public void WriteCarModelsDataModelsToDatabase(List<CarModelDataModel> models)
         {
-            Context.Models.AddRange(models);
-            Context.SaveChanges();
+            context.Models.AddRange(models);
+            context.SaveChanges();
         }
 
         public void WriteEngineDataModelToDatabase(EngineDataModel model)
         {
-            Context.Engines.Add(model);
-            Context.SaveChanges();
+            context.Engines.Add(model);
+            context.SaveChanges();
         }
 
+        public void AddOrUpdateParts(SparePartsDataModel model)
+        {
+            if (context.Spare_Parts.Contains(model))
+            {
+                var m = context.Spare_Parts.First(p => p.Id == model.Id);
+                m.Name = model.Name;
+                m.Price = model.Price;
+                m.IsDeleted = model.IsDeleted;
+                
+                this.EditEntity<SparePartsDataModel>(model);
+            }
+            else
+            {
+                context.Spare_Parts.Add(model);
+                context.SaveChanges();
+            }
 
+        }
 
     }
 }

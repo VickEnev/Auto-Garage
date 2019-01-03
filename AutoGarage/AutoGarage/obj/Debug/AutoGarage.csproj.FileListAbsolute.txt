@@ -77,7 +77,6 @@ E:\GitHub\Vaccines\Auto-Garage\AutoGarage\AutoGarage\bin\Debug\System.Runtime.Co
 E:\GitHub\Vaccines\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Card.resources
 E:\GitHub\Vaccines\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Parts.resources
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Card.resources
-D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.Parts.resources
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\bin\Debug\EntityFramework.dll
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\bin\Debug\EntityFramework.SqlServer.dll
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\bin\Debug\EntityFramework.xml
@@ -86,3 +85,5 @@ D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.csprojAssemblyR
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.csproj.CoreCompileInputs.cache
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.csproj.CopyComplete
 D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.EngineDialog.resources
+D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.PartsDialog.resources
+D:\GitHub\Auto-Garage\AutoGarage\AutoGarage\obj\Debug\AutoGarage.PartsEditor.resources
