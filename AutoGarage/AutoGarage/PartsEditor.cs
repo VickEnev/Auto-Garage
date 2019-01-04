@@ -53,7 +53,10 @@ namespace AutoGarage
                 Model.IsDeleted = false;
                 MiscController.AddOrUpdateParts(Model);
             }
-
+            else
+            {
+                MessageBox.Show("Invalid Price", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btn_CANCEL_Click(object sender, EventArgs e)

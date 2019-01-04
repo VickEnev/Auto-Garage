@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoGarage.Controller;
 using AutoGarage.DataModel.MaintenanceCardDataModel;
+using AutoGarage.DataModel.SparePartsDataModels;
+using AutoGarage.ViewModels;
 
 namespace AutoGarage
 {
@@ -18,6 +20,7 @@ namespace AutoGarage
         private AutomobileController AutomobileController { get; set; }
         private MiscController MiscController { get; set; }
         private MaintenanceCardDataModel CardModel { get; set; }
+
 
         public Card()
         {
@@ -52,7 +55,22 @@ namespace AutoGarage
         //add parts
         private void b_ADD_Click(object sender, EventArgs e)
         {
+            var partsDialog = new PartsDialog(MiscController, true);
+            if (partsDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (lb_Parts.Items.Count > 0)
+                    lb_Parts.Items.Clear();
 
+                lb_Parts.Items.AddRange(partsDialog
+                   .SelectedParts
+                   .ConvertAll(new Converter<PartsViewModel, SparePartsDataModel>(ConvertViewModel))
+                   .ToArray());
+
+                if (decimal.TryParse(tb_labour.Text, out decimal labour))
+                    CardModel.TotalPrice = SumPartsPrice() + labour;
+
+                lbl_PPrice.Text = CardModel.TotalPrice.ToString();
+            }
         }
 
         // remove parts
@@ -64,7 +82,7 @@ namespace AutoGarage
         //update button
         private void b_OK_Click(object sender, EventArgs e)
         {
-
+            UpdateMaintenanceCard();
         }
 
         private void b_CANCEL_Click(object sender, EventArgs e)
@@ -74,7 +92,7 @@ namespace AutoGarage
 
         private void tb_labour_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void UpdateMaintenanceCard()
@@ -84,7 +102,7 @@ namespace AutoGarage
             var departureTime = dtp_departure.Value;
             var arrivalTime = dtp_arrival.Value;
             var description = rtb_Description.Text;
-            
+
         }
 
 
@@ -112,7 +130,18 @@ namespace AutoGarage
             }
             return false;
         }
+
+        private SparePartsDataModel ConvertViewModel(PartsViewModel p)
+        {
+            return new SparePartsDataModel() { Id = p.Id, Name = p.Name, Price = p.Price, IsDeleted = true };
+        }
+
+        private decimal SumPartsPrice()
+        {
+            return
+                   Math.Round(lb_Parts.Items.Cast<SparePartsDataModel>().Select(p => p.Price).Sum(), 2);
+        }
     }
 
-    
+
 }

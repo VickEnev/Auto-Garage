@@ -12,9 +12,9 @@ namespace AutoGarage.Controller
 {
     public class MiscController : Controller
     {
-    
 
-        public MiscController(AutomobileDbContext context) : base (context)
+
+        public MiscController(AutomobileDbContext context) : base(context)
         {
             this.context = context;
         }
@@ -145,6 +145,24 @@ namespace AutoGarage.Controller
             return null;
         }
 
+        public IList<PartsViewModel> GetSparePartsViewModels()
+        {
+            var result = new List<PartsViewModel>();
+            var parts = context.Spare_Parts.ToList();
+            foreach (var p in parts)
+            {
+                if(!p.IsDeleted)
+                result.Add(new PartsViewModel() { Id = p.Id, Name = p.Name, Price = p.Price });
+            }
+            return result;
+        }
+
+        public SparePartsDataModel GetPartsById(int id)
+        {
+            return context.Spare_Parts.FirstOrDefault(p => p.Id == id && p.IsDeleted == false);
+        }
+
+
         // write methods
 
         public void WriteBrandDataModelToDatabase(BrandDataModel model)
@@ -154,7 +172,7 @@ namespace AutoGarage.Controller
         }
 
         public void WriteColorsDataModelToDatabase(List<ColorDataModel> models)
-        { 
+        {
             context.Colors.AddRange(models);
             context.SaveChanges();
         }
@@ -185,7 +203,7 @@ namespace AutoGarage.Controller
                 m.Name = model.Name;
                 m.Price = model.Price;
                 m.IsDeleted = model.IsDeleted;
-                
+
                 this.EditEntity<SparePartsDataModel>(model);
             }
             else
@@ -194,6 +212,19 @@ namespace AutoGarage.Controller
                 context.SaveChanges();
             }
 
+        }
+
+        public void DeletePartById(int id)
+        {
+            var part = context.Spare_Parts.FirstOrDefault(p => p.Id == id);
+            part.IsDeleted = true;
+            this.EditEntity<SparePartsDataModel>(part);
+        }
+
+        public bool IsPartDeleted(int id)
+        {
+            var part = context.Spare_Parts.FirstOrDefault(p => p.Id == id);
+            return part.IsDeleted;
         }
 
     }

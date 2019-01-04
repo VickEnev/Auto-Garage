@@ -70,6 +70,7 @@
             // 
             // btn_OK
             // 
+            this.btn_OK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btn_OK.Location = new System.Drawing.Point(268, 71);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(75, 23);
@@ -80,6 +81,7 @@
             // 
             // btn_CANCEL
             // 
+            this.btn_CANCEL.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btn_CANCEL.Location = new System.Drawing.Point(349, 71);
             this.btn_CANCEL.Name = "btn_CANCEL";
             this.btn_CANCEL.Size = new System.Drawing.Size(75, 23);
@@ -100,7 +102,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "PartsEditor";
-            this.Text = "PartsEditor";
+            this.Text = "Parts Editor";
             this.ResumeLayout(false);
             this.PerformLayout();
 
