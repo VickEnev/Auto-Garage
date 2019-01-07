@@ -100,9 +100,9 @@
             this.lbl_PPrice.AutoSize = true;
             this.lbl_PPrice.Location = new System.Drawing.Point(121, 147);
             this.lbl_PPrice.Name = "lbl_PPrice";
-            this.lbl_PPrice.Size = new System.Drawing.Size(69, 13);
+            this.lbl_PPrice.Size = new System.Drawing.Size(46, 13);
             this.lbl_PPrice.TabIndex = 5;
-            this.lbl_PPrice.Text = "000.00 BGN.";
+            this.lbl_PPrice.Text = "$000.00";
             // 
             // label7
             // 
@@ -144,7 +144,7 @@
             this.tb_labour.Name = "tb_labour";
             this.tb_labour.Size = new System.Drawing.Size(100, 20);
             this.tb_labour.TabIndex = 12;
-            this.tb_labour.TextChanged += new System.EventHandler(this.tb_labour_TextChanged);
+            this.tb_labour.Leave += new System.EventHandler(this.tb_labour_Leave);
             // 
             // lb_Parts
             // 
@@ -250,6 +250,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Card";

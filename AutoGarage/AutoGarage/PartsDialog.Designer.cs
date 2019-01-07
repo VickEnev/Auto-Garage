@@ -45,6 +45,7 @@
             this.lb_AllParts.FormattingEnabled = true;
             this.lb_AllParts.Location = new System.Drawing.Point(15, 67);
             this.lb_AllParts.Name = "lb_AllParts";
+            this.lb_AllParts.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.lb_AllParts.Size = new System.Drawing.Size(504, 329);
             this.lb_AllParts.TabIndex = 0;
             // 
@@ -56,7 +57,7 @@
             this.deleteToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(863, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(865, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -88,7 +89,7 @@
             // 
             this.btn_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_OK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btn_OK.Location = new System.Drawing.Point(676, 417);
+            this.btn_OK.Location = new System.Drawing.Point(678, 417);
             this.btn_OK.Name = "btn_OK";
             this.btn_OK.Size = new System.Drawing.Size(75, 23);
             this.btn_OK.TabIndex = 2;
@@ -112,11 +113,13 @@
             this.btn_addSelected.TabIndex = 5;
             this.btn_addSelected.Text = "Add Selected";
             this.btn_addSelected.UseVisualStyleBackColor = true;
+            this.btn_addSelected.Click += new System.EventHandler(this.btn_addSelected_Click);
             // 
             // btn_Cancel
             // 
+            this.btn_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_Cancel.Location = new System.Drawing.Point(763, 417);
+            this.btn_Cancel.Location = new System.Drawing.Point(765, 417);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
             this.btn_Cancel.TabIndex = 6;
@@ -127,15 +130,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 452);
+            this.ClientSize = new System.Drawing.Size(865, 452);
             this.Controls.Add(this.btn_Cancel);
             this.Controls.Add(this.btn_addSelected);
             this.Controls.Add(this.lb_SelectedParts);
             this.Controls.Add(this.btn_OK);
             this.Controls.Add(this.lb_AllParts);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "PartsDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Parts Dialog";
             this.Load += new System.EventHandler(this.PartsDialog_Load);
             this.menuStrip1.ResumeLayout(false);

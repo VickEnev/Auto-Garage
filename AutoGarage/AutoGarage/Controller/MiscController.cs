@@ -197,14 +197,14 @@ namespace AutoGarage.Controller
 
         public void AddOrUpdateParts(SparePartsDataModel model)
         {
-            if (context.Spare_Parts.Contains(model))
+            var part = context.Spare_Parts.FirstOrDefault(s => s.Id == model.Id);
+            if (part != null)
             {
-                var m = context.Spare_Parts.First(p => p.Id == model.Id);
-                m.Name = model.Name;
-                m.Price = model.Price;
-                m.IsDeleted = model.IsDeleted;
+                part.Name = model.Name;
+                part.Price = model.Price;
+                part.IsDeleted = model.IsDeleted;
 
-                this.EditEntity<SparePartsDataModel>(model);
+                this.EditEntity<SparePartsDataModel>(part);
             }
             else
             {

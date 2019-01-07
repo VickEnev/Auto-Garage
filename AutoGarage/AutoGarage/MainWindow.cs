@@ -71,7 +71,7 @@ namespace AutoGarage
             foreach(var c in menuStrip1.Items)
             {
                 var strip = ((ToolStripMenuItem)c);
-                if(strip.Name != "noname")
+                if(!strip.Name.Contains("noname"))
                 strip.Enabled = true;
             }
         }
@@ -137,6 +137,12 @@ namespace AutoGarage
                 serviceHistory.ShowDialog();
             }
             catch (Exception ex) { }
+        }
+
+        private void allPartsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new PartsDialog(Dependancies.MiscController,false);
+            dialog.ShowDialog();
         }
     }
 }

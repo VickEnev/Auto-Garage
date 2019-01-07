@@ -20,7 +20,7 @@ namespace AutoGarage
         private AutomobileController AutomobileController { get; set; }
         private MiscController MiscController { get; set; }
         private MaintenanceCardDataModel CardModel { get; set; }
-
+        private decimal AllPartsPrice { get; set; } = 0;
 
         public Card()
         {
@@ -53,21 +53,28 @@ namespace AutoGarage
         }
 
         //add parts
+        //  TODO: 
+        //   Fix problem - both the parts dialog and card close when OK(on the parts dialog form) is pressed!!!
         private void b_ADD_Click(object sender, EventArgs e)
         {
             var partsDialog = new PartsDialog(MiscController, true);
             if (partsDialog.ShowDialog() == DialogResult.OK)
             {
+                System.Diagnostics.Debug.WriteLine("b_add_Click - after if");
                 if (lb_Parts.Items.Count > 0)
                     lb_Parts.Items.Clear();
 
+                if(partsDialog.SelectedParts != null)
                 lb_Parts.Items.AddRange(partsDialog
                    .SelectedParts
                    .ConvertAll(new Converter<PartsViewModel, SparePartsDataModel>(ConvertViewModel))
                    .ToArray());
 
+                System.Diagnostics.Debug.WriteLine("b_add_Click - after conversion");
+
+                AllPartsPrice = SumPartsPrice();
                 if (decimal.TryParse(tb_labour.Text, out decimal labour))
-                    CardModel.TotalPrice = SumPartsPrice() + labour;
+                    CardModel.TotalPrice = AllPartsPrice + labour;
 
                 lbl_PPrice.Text = CardModel.TotalPrice.ToString();
             }
@@ -87,13 +94,9 @@ namespace AutoGarage
 
         private void b_CANCEL_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
-        private void tb_labour_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void UpdateMaintenanceCard()
         {
@@ -138,8 +141,18 @@ namespace AutoGarage
 
         private decimal SumPartsPrice()
         {
+            if(lb_Parts.Items.Count > 0)
             return
                    Math.Round(lb_Parts.Items.Cast<SparePartsDataModel>().Select(p => p.Price).Sum(), 2);
+            return 0.00M;
+        }
+
+        private void tb_labour_Leave(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(tb_labour.Text, out decimal labour))
+                CardModel.TotalPrice = AllPartsPrice + labour;
+
+            lbl_PPrice.Text = CardModel.TotalPrice.ToString("C");
         }
     }
 

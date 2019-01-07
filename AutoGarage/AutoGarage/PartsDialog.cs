@@ -27,6 +27,7 @@ namespace AutoGarage
         {
             InitializeComponent();
             this.MiscController = miscController;
+            this.IsFromMaintenanceCard = isFromMaintenanceCard;
         }
 
         private void PartsDialog_Load(object sender, EventArgs e)
@@ -44,7 +45,6 @@ namespace AutoGarage
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var pEditor = new PartsEditor(MiscController);
-            pEditor.ShowDialog();
             if (pEditor.ShowDialog() == DialogResult.OK)
                 LoadParts();
 
@@ -54,7 +54,6 @@ namespace AutoGarage
         {
             var selected = (PartsViewModel)lb_AllParts.SelectedItem;
             var pEditor = new PartsEditor(MiscController, MiscController.GetPartsById(selected.Id));
-            pEditor.ShowDialog();
             if (pEditor.ShowDialog() == DialogResult.OK)
                 LoadParts();
 
@@ -77,19 +76,42 @@ namespace AutoGarage
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            CheckIfHasDeleted();
-            SelectedParts.AddRange(lb_SelectedParts.Items.Cast<PartsViewModel>());
+            if (IsFromMaintenanceCard)
+            {
+                CheckIfHasDeleted();
+                SelectedParts.AddRange(lb_SelectedParts.Items.Cast<PartsViewModel>());
+            }
+           
         }
 
         private void CheckIfHasDeleted()
         {
-            for (int i = 0; i < SelectedParts.Count; i++)
+            try
             {
-                if (MiscController.IsPartDeleted(SelectedParts[i].Id))
+                for (int i = 0; i < SelectedParts.Count; i++)
                 {
-                    SelectedParts.RemoveAt(i);
+                    if (MiscController.IsPartDeleted(SelectedParts[i].Id))
+                    {
+                        SelectedParts.RemoveAt(i);
+                    }
                 }
             }
+            catch (NullReferenceException) { }
+          
+            
+        }
+
+        private void btn_addSelected_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (var i in lb_AllParts.SelectedItems.Cast<PartsViewModel>())
+                {
+                    lb_SelectedParts.Items.Add(i);
+                }
+            }
+            catch (NullReferenceException) { }
+            
         }
     }
 }

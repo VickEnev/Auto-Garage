@@ -33,6 +33,7 @@ namespace AutoGarage
             InitializeComponent();
             this.MiscController = miscController;
             this.Model = model;
+            LoadModel();
         }
 
         private void LoadModel()
