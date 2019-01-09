@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using AutoGarage.ViewModels;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoGarage.Controller;
-using AutoGarage.ViewModels;
 
 namespace AutoGarage
 {
+
     public partial class MainWindow : Form
     {
-        private Data.Dependancies Dependancies; 
+        private Data.Dependancies Dependancies;
+
 
         public MainWindow()
         {
@@ -29,50 +24,54 @@ namespace AutoGarage
         }
 
         private void LoadData()
-        {           
+        {
             var db = new Data.DatabaseController();
             var ex = new Exception();
-            if(!db.CreateIfNotExists(out ex))
+            if (!db.CreateIfNotExists(out ex))
             {
-                this.Invoke(new Action(() => 
+                this.Invoke(new Action(() =>
                 {
-                    MessageBox.Show(ex.ToString(), "Creating Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show(ex.ToString(), "Creating Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     slbl_DBStatus.Text = "Database Connection: Not Connected!";
                 }));
             }
             else
             {
-                
+
                 LoadAutomobiles();
                 this.Invoke(new Action(() =>
                 {
                     slbl_DBStatus.Text = "Database Connection: Connected!";
                     EnableMenuStrip();
                 }));
-            }          
-        } 
+            }
+        }
 
 
         private void LoadAutomobiles()
         {
             var items = Dependancies.AutomobileController.getCarViewModel();
-            foreach(var s in items)
-            {              
-                this.Invoke(new Action(() =>
-                {
-                    lb_DataBox.Items.Add(s);
-                }));
-                    
-            }
+            DisplayResults(items.ToArray());
         }
 
         private void EnableMenuStrip()
         {
-            foreach(var c in menuStrip1.Items)
+            foreach (var c in menuStrip1.Items)
             {
-                var strip = ((ToolStripMenuItem)c);
-                if(!strip.Name.Contains("noname"))
-                strip.Enabled = true;
+                try
+                {
+                    var strip = ((ToolStripMenuItem)c);
+                    if (!strip.Name.Contains("noname"))
+                        strip.Enabled = true;
+                }
+                catch (InvalidCastException)
+                {
+                    var strip = ((ToolStripComboBox)c);
+                    if (!strip.Name.Contains("noname"))
+                        strip.Enabled = true;
+                }
+
+
             }
         }
 
@@ -84,13 +83,13 @@ namespace AutoGarage
             automobileDataInput.ShowDialog();
         }
 
-       
+
 
         private void loadBrandModelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var dbInfoLoader = new Data.DatabaseInfoLoader(Application.StartupPath, Dependancies.MiscController);
             dbInfoLoader.LoadBrandsAndModels();
-            MessageBox.Show("Brand & Models Loaded!","Done",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Brand & Models Loaded!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void loadColorsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,12 +117,12 @@ namespace AutoGarage
                 Dependancies.AutomobileController.DeleteAutomobile(selected);
             }
             catch (Exception ex) { }
-         
+
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lb_DataBox.Items.Clear();
+           
             Task t = new Task(() => LoadData());
             t.Start();
         }
@@ -141,8 +140,91 @@ namespace AutoGarage
 
         private void allPartsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var dialog = new PartsDialog(Dependancies.MiscController,false);
+            var dialog = new PartsDialog(Dependancies.MiscController, false);
             dialog.ShowDialog();
         }
+
+       
+        private void toolStripFilterBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (toolStripFilterBox.SelectedIndex)
+            {
+
+                case 0:
+                    {
+                        dtp_Filter.Visible = false;
+                        LoadAutomobiles();
+                    }
+                    break;
+                case 1:
+                case 2:
+                    dtp_Filter.Visible = true;
+                    break;
+                case 3:
+                    {
+                        dtp_Filter.Visible = false;
+                        Task w = new Task(() => GetAllAutosWithUnfinishedRepairs());
+                        w.Start();
+                    }
+                    break;
+            }
+        }
+
+        private void dtp_Filter_ValueChanged(object sender, EventArgs e)
+        {
+            switch (toolStripFilterBox.SelectedIndex)
+            {
+                case 1:
+                    {
+                        Task w = new Task(() => GetAllAutosAfterDate());
+                        w.Start();
+                    }
+                    break;
+                case 2:
+                    {
+                        Task w = new Task(() => GetAllAutosBeforeDate());
+                        w.Start();
+                    }
+                    break;
+            }
+
+        }
+
+        private void GetAllAutosAfterDate()
+        {
+            var results = Dependancies.AutomobileController.GetAutomobilesAfterDate(dtp_Filter.Value);
+            DisplayResults(results);
+        }
+
+        private void GetAllAutosBeforeDate()
+        {     
+            var results = Dependancies.AutomobileController.GetAutomobilesBeforeDate(dtp_Filter.Value);
+            DisplayResults(results);
+        }
+
+        private void GetAllAutosWithUnfinishedRepairs()
+        {
+            var results = Dependancies.AutomobileController.GetAllAutomobilesWithUnfinishedRepairs();
+            DisplayResults(results);
+        }
+
+        private void DisplayResults(CarViewModel[] models)
+        {
+            this.Invoke(new Action(() =>
+            {
+                lb_DataBox.Items.Clear();
+            }));
+
+            foreach (var s in models)
+            {
+                this.Invoke(new Action(() =>
+                {
+                    lb_DataBox.Items.Add(s);
+                }));
+
+            }
+        }
+
+
     }
 }

@@ -50,8 +50,9 @@ namespace AutoGarage.Data
 
         public AutomobileDbContext() : base("name=GarageDatabase")
         {
-
+            
         }
+
 
         
     }

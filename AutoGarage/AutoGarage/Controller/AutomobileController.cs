@@ -205,6 +205,30 @@ namespace AutoGarage.Controller
             EditEntity<MaintenanceCardDataModel>(Model);
         }
 
+        public CarViewModel[] GetAutomobilesAfterDate(DateTime date)
+        {
+            var result = context.Automobiles
+                .Where(a => a.MaintenanceCard.DateOfArrival > date && a.IsDeleted == false).ToArray();
+            return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
+        }
 
+        public CarViewModel[] GetAutomobilesBeforeDate(DateTime date)
+        {
+            var result = context.Automobiles
+                .Where(a => a.MaintenanceCard.DateOfArrival < date && a.IsDeleted == false).ToArray();
+            return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
+        }
+
+        public CarViewModel[] GetAllAutomobilesWithUnfinishedRepairs()
+        {
+            var result = context.Automobiles
+                .Where(a => a.MaintenanceCard.Finished == false && a.IsDeleted == false).ToArray();
+            return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
+        }
+
+        private CarViewModel ConvertDataModel_To_ViewModel(AutomobileDataModel model)
+        {
+            return new CarViewModel() { ID = model.Id, DRN = model.DRN, ModelName = model.Engine.CarModel.Name };
+        }
     }
 }
