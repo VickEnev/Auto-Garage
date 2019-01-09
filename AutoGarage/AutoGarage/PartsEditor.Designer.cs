@@ -101,7 +101,9 @@
             this.Controls.Add(this.tb_Name);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PartsEditor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Parts Editor";
             this.ResumeLayout(false);
             this.PerformLayout();

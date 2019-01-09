@@ -149,14 +149,14 @@
             // lb_Parts
             // 
             this.lb_Parts.FormattingEnabled = true;
-            this.lb_Parts.Location = new System.Drawing.Point(451, 47);
+            this.lb_Parts.Location = new System.Drawing.Point(407, 47);
             this.lb_Parts.Name = "lb_Parts";
-            this.lb_Parts.Size = new System.Drawing.Size(155, 199);
+            this.lb_Parts.Size = new System.Drawing.Size(199, 199);
             this.lb_Parts.TabIndex = 13;
             // 
             // b_ADD
             // 
-            this.b_ADD.Location = new System.Drawing.Point(451, 277);
+            this.b_ADD.Location = new System.Drawing.Point(407, 277);
             this.b_ADD.Name = "b_ADD";
             this.b_ADD.Size = new System.Drawing.Size(65, 23);
             this.b_ADD.TabIndex = 14;
@@ -176,7 +176,7 @@
             // 
             // b_OK
             // 
-            this.b_OK.Location = new System.Drawing.Point(31, 359);
+            this.b_OK.Location = new System.Drawing.Point(31, 348);
             this.b_OK.Name = "b_OK";
             this.b_OK.Size = new System.Drawing.Size(75, 23);
             this.b_OK.TabIndex = 16;
@@ -186,7 +186,7 @@
             // 
             // b_CANCEL
             // 
-            this.b_CANCEL.Location = new System.Drawing.Point(124, 359);
+            this.b_CANCEL.Location = new System.Drawing.Point(124, 348);
             this.b_CANCEL.Name = "b_CANCEL";
             this.b_CANCEL.Size = new System.Drawing.Size(75, 23);
             this.b_CANCEL.TabIndex = 17;

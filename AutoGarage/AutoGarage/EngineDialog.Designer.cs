@@ -145,6 +145,7 @@
             this.Controls.Add(this.tb_engVolume);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EngineDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Engine Dialog";
             this.Load += new System.EventHandler(this.EngineDialog_Load);
             this.ResumeLayout(false);

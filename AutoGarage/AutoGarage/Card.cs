@@ -44,37 +44,46 @@ namespace AutoGarage
         private void AssignValues()
         {
             dtp_arrival.Value = CardModel.DateOfArrival;
+            dtp_departure.Value = CardModel.DateOfDeparture;
+            if (CardModel.Description != null)
+                rtb_Description.Text = CardModel.Description;
+            if (CardModel.EmployeeName != null)
+                tb_Employee.Text = CardModel.EmployeeName;
+            lbl_PPrice.Text = CardModel.TotalPrice.ToString();
+            if (CardModel.Parts.Count > 0)
+                lb_Parts.Items.AddRange(Array.ConvertAll(CardModel.Parts.ToArray(),
+                    ConvertDataModel_To_ViewModel));
+
             Task t = new Task(() =>
             {
                 var name = AutomobileController.GetOwnerNameByMaintenanceCardId(CardModel.Id);
                 this.Invoke(new Action(() => { tb_Client.Text = name; }));
             });
             t.Start();
+
         }
 
         //add parts
-        //  TODO: 
-        //   Fix problem - both the parts dialog and card close when OK(on the parts dialog form) is pressed!!!
+
         private void b_ADD_Click(object sender, EventArgs e)
         {
             var partsDialog = new PartsDialog(MiscController, true);
             if (partsDialog.ShowDialog() == DialogResult.OK)
             {
-                System.Diagnostics.Debug.WriteLine("b_add_Click - after if");
+
                 if (lb_Parts.Items.Count > 0)
                     lb_Parts.Items.Clear();
 
-                if(partsDialog.SelectedParts != null)
-                lb_Parts.Items.AddRange(partsDialog
-                   .SelectedParts
-                   .ConvertAll(new Converter<PartsViewModel, SparePartsDataModel>(ConvertViewModel))
-                   .ToArray());
-
-                System.Diagnostics.Debug.WriteLine("b_add_Click - after conversion");
+                if (partsDialog.SelectedParts != null)
+                    lb_Parts.Items.AddRange(partsDialog
+                       .SelectedParts
+                       .ToArray());
 
                 AllPartsPrice = SumPartsPrice();
-                if (decimal.TryParse(tb_labour.Text, out decimal labour))
-                    CardModel.TotalPrice = AllPartsPrice + labour;
+
+                decimal.TryParse(tb_labour.Text, out decimal labour);
+                CardModel.TotalPrice = AllPartsPrice + labour;
+
 
                 lbl_PPrice.Text = CardModel.TotalPrice.ToString();
             }
@@ -83,7 +92,8 @@ namespace AutoGarage
         // remove parts
         private void b_Remove_Click(object sender, EventArgs e)
         {
-
+            if (lb_Parts.SelectedIndex > -1)
+                lb_Parts.Items.RemoveAt(lb_Parts.SelectedIndex);
         }
 
         //update button
@@ -100,12 +110,36 @@ namespace AutoGarage
 
         private void UpdateMaintenanceCard()
         {
-            var employeeName = tb_Employee.Text;
-            double.TryParse(tb_labour.Text, out double labourPrice);
-            var departureTime = dtp_departure.Value;
-            var arrivalTime = dtp_arrival.Value;
-            var description = rtb_Description.Text;
+            if (ValidateInput())
+            {
+                var employeeName = tb_Employee.Text;
+                double.TryParse(tb_labour.Text, out double labourPrice);
+                var departureTime = dtp_departure.Value;
+                var arrivalTime = dtp_arrival.Value;
+                var description = rtb_Description.Text;
+                var parts = Array.ConvertAll(
+                    lb_Parts.Items.Cast<PartsViewModel>().ToArray(),
+                    ConvertViewModel_To_DataModel);
 
+                CardModel.DateOfDeparture = departureTime;
+                CardModel.EmployeeName = employeeName;
+                CardModel.Description = description;
+                CardModel.Parts = new List<SparePartsDataModel>();
+                CardModel.Parts.AddRange(parts);
+
+                if (departureTime > CardModel.DateOfArrival)
+                {
+                    CardModel.DateOfDeparture = departureTime;
+                    CardModel.Finished = true;
+                }
+
+                AutomobileController.SaveMaintenanceCard(CardModel);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Invalid Input!", "Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -113,19 +147,15 @@ namespace AutoGarage
         {
             if (dtp_departure.Value > dtp_arrival.Value)
             {
-                double labourPrice = 0;
-                if (double.TryParse(tb_labour.Text, out labourPrice))
+                if (double.TryParse(tb_labour.Text, out double labourPrice))
                 {
-                    if (labourPrice > 0)
+                    if (rtb_Description.Text != "")
                     {
-                        if (rtb_Description.Text != "")
+                        if (tb_Employee.Text != "")
                         {
-                            if (tb_Employee.Text != "")
+                            if (lb_Parts.Items.Count > 0)
                             {
-                                if (lb_Parts.Items.Count > 0)
-                                {
-                                    return true;
-                                }
+                                return true;
                             }
                         }
                     }
@@ -134,16 +164,21 @@ namespace AutoGarage
             return false;
         }
 
-        private SparePartsDataModel ConvertViewModel(PartsViewModel p)
+        private SparePartsDataModel ConvertViewModel_To_DataModel(PartsViewModel p)
         {
-            return new SparePartsDataModel() { Id = p.Id, Name = p.Name, Price = p.Price, IsDeleted = true };
+            return new SparePartsDataModel() { Id = p.Id, Name = p.Name, Price = p.Price, IsDeleted = false };
+        }
+
+        private PartsViewModel ConvertDataModel_To_ViewModel(SparePartsDataModel p)
+        {
+            return new PartsViewModel() { Id = p.Id, Name = p.Name, Price = p.Price };
         }
 
         private decimal SumPartsPrice()
         {
-            if(lb_Parts.Items.Count > 0)
-            return
-                   Math.Round(lb_Parts.Items.Cast<SparePartsDataModel>().Select(p => p.Price).Sum(), 2);
+            if (lb_Parts.Items.Count > 0)
+                return
+                       Math.Round(lb_Parts.Items.Cast<PartsViewModel>().Select(p => p.Price).Sum(), 2);
             return 0.00M;
         }
 

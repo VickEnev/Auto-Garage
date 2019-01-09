@@ -35,15 +35,14 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noname1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.allPartsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noname2 = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadBrandModelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.partsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.slbl_DBStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.allPartsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.noname1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.noname2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -116,12 +115,33 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // noname1
+            // 
+            this.noname1.Enabled = false;
+            this.noname1.Name = "noname1";
+            this.noname1.Size = new System.Drawing.Size(22, 20);
+            this.noname1.Text = "|";
+            // 
+            // allPartsToolStripMenuItem
+            // 
+            this.allPartsToolStripMenuItem.Enabled = false;
+            this.allPartsToolStripMenuItem.Name = "allPartsToolStripMenuItem";
+            this.allPartsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.allPartsToolStripMenuItem.Text = "All Parts";
+            this.allPartsToolStripMenuItem.Click += new System.EventHandler(this.allPartsToolStripMenuItem_Click);
+            // 
+            // noname2
+            // 
+            this.noname2.Enabled = false;
+            this.noname2.Name = "noname2";
+            this.noname2.Size = new System.Drawing.Size(22, 20);
+            this.noname2.Text = "|";
+            // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadBrandModelsToolStripMenuItem,
-            this.loadColorsToolStripMenuItem,
-            this.partsToolStripMenuItem});
+            this.loadColorsToolStripMenuItem});
             this.optionsToolStripMenuItem.Enabled = false;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -141,12 +161,6 @@
             this.loadColorsToolStripMenuItem.Text = "Load Colors";
             this.loadColorsToolStripMenuItem.Click += new System.EventHandler(this.loadColorsToolStripMenuItem_Click);
             // 
-            // partsToolStripMenuItem
-            // 
-            this.partsToolStripMenuItem.Name = "partsToolStripMenuItem";
-            this.partsToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.partsToolStripMenuItem.Text = "View All Parts";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -161,28 +175,6 @@
             // 
             this.slbl_DBStatus.Name = "slbl_DBStatus";
             this.slbl_DBStatus.Size = new System.Drawing.Size(0, 17);
-            // 
-            // allPartsToolStripMenuItem
-            // 
-            this.allPartsToolStripMenuItem.Enabled = false;
-            this.allPartsToolStripMenuItem.Name = "allPartsToolStripMenuItem";
-            this.allPartsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.allPartsToolStripMenuItem.Text = "All Parts";
-            this.allPartsToolStripMenuItem.Click += new System.EventHandler(this.allPartsToolStripMenuItem_Click);
-            // 
-            // noname1
-            // 
-            this.noname1.Enabled = false;
-            this.noname1.Name = "noname1";
-            this.noname1.Size = new System.Drawing.Size(22, 20);
-            this.noname1.Text = "|";
-            // 
-            // noname2
-            // 
-            this.noname2.Enabled = false;
-            this.noname2.Name = "noname2";
-            this.noname2.Size = new System.Drawing.Size(22, 20);
-            this.noname2.Text = "|";
             // 
             // MainWindow
             // 
@@ -220,7 +212,6 @@
         private System.Windows.Forms.ToolStripStatusLabel slbl_DBStatus;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noname;
-        private System.Windows.Forms.ToolStripMenuItem partsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noname1;
         private System.Windows.Forms.ToolStripMenuItem allPartsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noname2;

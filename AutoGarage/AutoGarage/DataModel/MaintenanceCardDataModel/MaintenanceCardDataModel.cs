@@ -17,6 +17,7 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
             DateOfArrival = DateTime.Now;
             DateOfDeparture = DateTime.Now;
         }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -29,6 +30,10 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
         public string EmployeeName { get; set; }
         public virtual List<SparePartsDataModels.SparePartsDataModel> Parts { get; set; }
         public decimal TotalPrice { get; set; }
+
+      //  public virtual string PartIds { get; set; }
+
         public bool Finished { get; set; }
+
     }
 }

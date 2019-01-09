@@ -161,7 +161,6 @@ namespace AutoGarage.Controller
           
         }
 
-
         public ServiceHistoryViewModel GetServiceHistoryViewModel(int id)
         {
             var result = new ServiceHistoryViewModel();
@@ -201,9 +200,9 @@ namespace AutoGarage.Controller
             return context.Automobiles.First(a => a.MaintenanceCardId == id).Owner.Name;     
         }
 
-        public void EditMaintenanceCardModel(int id)
+        public void SaveMaintenanceCard(MaintenanceCardDataModel Model)
         {
-
+            EditEntity<MaintenanceCardDataModel>(Model);
         }
 
 

@@ -155,6 +155,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
+            "All",
             "With Deleted",
             "Without Deleted",
             "Status = Finished",
@@ -183,6 +184,9 @@
             this.Controls.Add(this.lbl_RegN);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lb_MH);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ServiceHistory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Service History";

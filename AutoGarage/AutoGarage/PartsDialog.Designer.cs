@@ -107,7 +107,7 @@
             // 
             // btn_addSelected
             // 
-            this.btn_addSelected.Location = new System.Drawing.Point(15, 38);
+            this.btn_addSelected.Location = new System.Drawing.Point(15, 417);
             this.btn_addSelected.Name = "btn_addSelected";
             this.btn_addSelected.Size = new System.Drawing.Size(103, 23);
             this.btn_addSelected.TabIndex = 5;
@@ -139,8 +139,10 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "PartsDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Parts Dialog";
             this.Load += new System.EventHandler(this.PartsDialog_Load);
             this.menuStrip1.ResumeLayout(false);

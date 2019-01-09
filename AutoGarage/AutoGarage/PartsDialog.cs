@@ -28,6 +28,7 @@ namespace AutoGarage
             InitializeComponent();
             this.MiscController = miscController;
             this.IsFromMaintenanceCard = isFromMaintenanceCard;
+            SelectedParts = new List<PartsViewModel>();
         }
 
         private void PartsDialog_Load(object sender, EventArgs e)
