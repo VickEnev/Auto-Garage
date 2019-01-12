@@ -16,5 +16,7 @@ namespace AutoGarage.ViewModels
         {
             return $"{Name} - {Price} BGN.";
         }
+
+        
     }
 }

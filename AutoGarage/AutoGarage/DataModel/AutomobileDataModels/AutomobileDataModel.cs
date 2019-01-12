@@ -34,6 +34,6 @@ namespace AutoGarage.DataModel.AutomobileDataModels
         public int MaintenanceCardId { get; set; }
         public virtual MaintenanceCardDataModel.MaintenanceCardDataModel MaintenanceCard { get; set; }
 
-        public bool IsDeleted { get; set; }
+        
     }
 }

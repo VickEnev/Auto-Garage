@@ -98,9 +98,10 @@
             // txt_Year
             // 
             this.txt_Year.Location = new System.Drawing.Point(88, 135);
+            this.txt_Year.MaxLength = 4;
             this.txt_Year.Name = "txt_Year";
             this.txt_Year.Size = new System.Drawing.Size(186, 20);
-            this.txt_Year.TabIndex = 8;
+            this.txt_Year.TabIndex = 3;
             // 
             // label6
             // 
@@ -125,7 +126,7 @@
             this.txt_Chassi.Location = new System.Drawing.Point(88, 215);
             this.txt_Chassi.Name = "txt_Chassi";
             this.txt_Chassi.Size = new System.Drawing.Size(186, 20);
-            this.txt_Chassi.TabIndex = 12;
+            this.txt_Chassi.TabIndex = 5;
             // 
             // label8
             // 
@@ -159,7 +160,7 @@
             this.txt_Owner.Location = new System.Drawing.Point(389, 60);
             this.txt_Owner.Name = "txt_Owner";
             this.txt_Owner.Size = new System.Drawing.Size(177, 20);
-            this.txt_Owner.TabIndex = 20;
+            this.txt_Owner.TabIndex = 7;
             // 
             // label12
             // 
@@ -173,9 +174,10 @@
             // txt_Telephone
             // 
             this.txt_Telephone.Location = new System.Drawing.Point(389, 103);
+            this.txt_Telephone.MaxLength = 10;
             this.txt_Telephone.Name = "txt_Telephone";
             this.txt_Telephone.Size = new System.Drawing.Size(177, 20);
-            this.txt_Telephone.TabIndex = 22;
+            this.txt_Telephone.TabIndex = 8;
             // 
             // cmb_Brand
             // 
@@ -183,7 +185,7 @@
             this.cmb_Brand.Location = new System.Drawing.Point(88, 49);
             this.cmb_Brand.Name = "cmb_Brand";
             this.cmb_Brand.Size = new System.Drawing.Size(188, 21);
-            this.cmb_Brand.TabIndex = 24;
+            this.cmb_Brand.TabIndex = 1;
             this.cmb_Brand.SelectedIndexChanged += new System.EventHandler(this.cmb_Brand_SelectedIndexChanged);
             // 
             // cmb_Model
@@ -193,7 +195,7 @@
             this.cmb_Model.Location = new System.Drawing.Point(88, 95);
             this.cmb_Model.Name = "cmb_Model";
             this.cmb_Model.Size = new System.Drawing.Size(186, 21);
-            this.cmb_Model.TabIndex = 25;
+            this.cmb_Model.TabIndex = 2;
             this.cmb_Model.SelectedIndexChanged += new System.EventHandler(this.cmb_Model_SelectedIndexChanged);
             // 
             // btn_Add
@@ -201,7 +203,7 @@
             this.btn_Add.Location = new System.Drawing.Point(406, 288);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 26;
+            this.btn_Add.TabIndex = 10;
             this.btn_Add.Text = "Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
@@ -211,7 +213,7 @@
             this.btn_Clear.Location = new System.Drawing.Point(491, 288);
             this.btn_Clear.Name = "btn_Clear";
             this.btn_Clear.Size = new System.Drawing.Size(75, 23);
-            this.btn_Clear.TabIndex = 27;
+            this.btn_Clear.TabIndex = 11;
             this.btn_Clear.Text = "Clear";
             this.btn_Clear.UseVisualStyleBackColor = true;
             this.btn_Clear.Click += new System.EventHandler(this.btn_Clear_Click);
@@ -221,7 +223,7 @@
             this.rtxt_Description.Location = new System.Drawing.Point(389, 135);
             this.rtxt_Description.Name = "rtxt_Description";
             this.rtxt_Description.Size = new System.Drawing.Size(177, 100);
-            this.rtxt_Description.TabIndex = 28;
+            this.rtxt_Description.TabIndex = 9;
             this.rtxt_Description.Text = "";
             // 
             // cmb_Color
@@ -230,7 +232,7 @@
             this.cmb_Color.Location = new System.Drawing.Point(389, 19);
             this.cmb_Color.Name = "cmb_Color";
             this.cmb_Color.Size = new System.Drawing.Size(177, 21);
-            this.cmb_Color.TabIndex = 29;
+            this.cmb_Color.TabIndex = 6;
             this.cmb_Color.SelectedIndexChanged += new System.EventHandler(this.ComboBoxItemSelected);
             // 
             // cmb_Engine
@@ -240,7 +242,7 @@
             this.cmb_Engine.Location = new System.Drawing.Point(88, 171);
             this.cmb_Engine.Name = "cmb_Engine";
             this.cmb_Engine.Size = new System.Drawing.Size(186, 21);
-            this.cmb_Engine.TabIndex = 30;
+            this.cmb_Engine.TabIndex = 4;
             this.cmb_Engine.SelectedIndexChanged += new System.EventHandler(this.ComboBoxItemSelected);
             // 
             // AutomobileDataInput

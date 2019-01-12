@@ -13,7 +13,7 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
     {
         public MaintenanceCardDataModel()
         {
-            Parts = new List<SparePartsDataModels.SparePartsDataModel>();
+            this.Parts = new HashSet<SparePartsDataModels.SparePartsDataModel>();
             DateOfArrival = DateTime.Now;
             DateOfDeparture = DateTime.Now;
         }
@@ -28,10 +28,8 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
        
         public string Description { get; set; }
         public string EmployeeName { get; set; }
-        public virtual List<SparePartsDataModels.SparePartsDataModel> Parts { get; set; }
+        public virtual ICollection<SparePartsDataModels.SparePartsDataModel> Parts { get; set; }
         public decimal TotalPrice { get; set; }
-
-      //  public virtual string PartIds { get; set; }
 
         public bool Finished { get; set; }
 

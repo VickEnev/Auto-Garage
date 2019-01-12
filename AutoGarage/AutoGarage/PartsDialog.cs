@@ -18,6 +18,7 @@ namespace AutoGarage
         private bool IsFromMaintenanceCard { get; set; }
         public List<PartsViewModel> SelectedParts { get; private set; }
 
+
         public PartsDialog()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace AutoGarage
                 this.Width = 551;
                 lb_SelectedParts.Dispose();
                 btn_addSelected.Dispose();
+                lb_AllParts.SelectionMode = SelectionMode.One;
             }
 
             LoadParts();
@@ -63,7 +65,10 @@ namespace AutoGarage
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selected = (PartsViewModel)lb_AllParts.SelectedItem;
-            MiscController.DeletePartById(selected.Id);
+            if(!MiscController.DeletePartById(selected.Id))
+            {
+                MessageBox.Show("Error!\n Can't delete part because it's used by a maintenance card.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             LoadParts();
         }
 
@@ -73,34 +78,20 @@ namespace AutoGarage
                 lb_AllParts.Items.Clear();
 
             lb_AllParts.Items.AddRange(MiscController.GetSparePartsViewModels().ToArray());
+
+          
         }
 
         private void btn_OK_Click(object sender, EventArgs e)
         {
             if (IsFromMaintenanceCard)
-            {
-                CheckIfHasDeleted();
+            {               
                 SelectedParts.AddRange(lb_SelectedParts.Items.Cast<PartsViewModel>());
             }
            
         }
 
-        private void CheckIfHasDeleted()
-        {
-            try
-            {
-                for (int i = 0; i < SelectedParts.Count; i++)
-                {
-                    if (MiscController.IsPartDeleted(SelectedParts[i].Id))
-                    {
-                        SelectedParts.RemoveAt(i);
-                    }
-                }
-            }
-            catch (NullReferenceException) { }
-          
-            
-        }
+      
 
         private void btn_addSelected_Click(object sender, EventArgs e)
         {

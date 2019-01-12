@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.ComponentModel.DataAnnotations;
 using AutoGarage.DataModel.AutomobileDataModels;
 using AutoGarage.DataModel.SparePartsDataModels;
 using AutoGarage.DataModel.MaintenanceCardDataModel;
+using AutoGarage.DataModel;
 
 
 
 namespace AutoGarage.Data
 {
 
-    /* - Car Parts will need to select and Engine or Engines to bind to, 
-       when you are adding a part you need to have a dropdown with all available engines in the db and select one from there or 
-       if there are no engines that match that part you need to add the engine and then add the part 
-
-     -  */
 
 
     public class AutomobileDbContext : DbContext
@@ -47,13 +46,10 @@ namespace AutoGarage.Data
         // Maintenance Cards 
         public DbSet<MaintenanceCardDataModel> Maintenances { get; set; }
 
+        public DbSet<CardsParts> CardsParts { get; set; }
 
-        public AutomobileDbContext() : base("name=GarageDatabase")
-        {
-            
-        }
+        public AutomobileDbContext() : base("name=GarageDatabase") { }
 
 
-        
     }
 }

@@ -51,7 +51,7 @@ namespace AutoGarage
 
                 Model.Name = tb_Name.Text;
                 Model.Price = price;
-                Model.IsDeleted = false;
+               
                 MiscController.AddOrUpdateParts(Model);
             }
             else

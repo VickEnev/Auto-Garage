@@ -43,8 +43,7 @@ namespace AutoGarage
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            int hp;
-            if (tb_engCode.Text != "" && tb_engVolume.Text != "" && int.TryParse(tb_horsePower.Text, out hp))
+            if (tb_engCode.Text != "" && tb_engVolume.Text != "" && int.TryParse(tb_horsePower.Text, out int hp))
             {
                 var carModel = miscController.GetModelByName(CarModelName, BrandName);
                 EngineModel = new EngineDataModel()
@@ -59,6 +58,7 @@ namespace AutoGarage
             else
             {
                 MessageBox.Show("Please Enter Valid Values", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.None;
             }
         }
 

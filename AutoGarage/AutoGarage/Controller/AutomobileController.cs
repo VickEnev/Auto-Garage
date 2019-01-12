@@ -14,7 +14,7 @@ namespace AutoGarage.Controller
     public class AutomobileController : Controller
     {
         public AutomobileController(Data.AutomobileDbContext context) : base(context) { }
-      
+
         public AutomobileDataModel GetAutomobileDataModel(int Id)
         {
             return context.Automobiles.FirstOrDefault(a => a.Id == Id);
@@ -29,16 +29,15 @@ namespace AutoGarage.Controller
                 {
                     try
                     {
-                        if (!a.IsDeleted)
-                        {
-                            CarModelDataModel carModel;
-                            if (a.Engine.CarModel == null)
-                                carModel = MapIdToClass(a.Engine.CarModelId);
-                            else
-                                carModel = a.Engine.CarModel;
 
-                            result.Add(new CarViewModel() { DRN = a.DRN, ModelName = carModel.Name, ID = a.Id });
-                        }
+                        CarModelDataModel carModel;
+                        if (a.Engine.CarModel == null)
+                            carModel = MapIdToClass(a.Engine.CarModelId);
+                        else
+                            carModel = a.Engine.CarModel;
+
+                        result.Add(new CarViewModel() { DRN = a.DRN, ModelName = carModel.Name, ID = a.Id });
+
                     }
                     catch (Exception e)
                     {
@@ -69,20 +68,13 @@ namespace AutoGarage.Controller
         public void SaveAutomobile(AutomobileSaveToken token)
         {
             var model = MakeModelFromToken(token);
-            var mc = new DataModel.MaintenanceCardDataModel.MaintenanceCardDataModel()
-            {
-                Description = "",
-                EmployeeName = "",
-                Parts = new List<DataModel.SparePartsDataModels.SparePartsDataModel>(),
-                TotalPrice = 0,
-                Finished = false
-            };
-
+            var mc = new MaintenanceCardDataModel();
 
             model.MaintenanceCard = mc;
             model.MaintenanceCardId = mc.Id;
 
             context.Automobiles.Add(model);
+            context.Maintenances.Add(mc);
             context.SaveChanges();
         }
 
@@ -115,7 +107,7 @@ namespace AutoGarage.Controller
             result.Description = token.Description;
             result.Engine = engine;
             result.EngineId = engine.Id;
-            result.IsDeleted = false;
+
             result.Owner = owner;
             result.OwnerId = owner.Id;
             result.Year = token.Year;
@@ -145,7 +137,7 @@ namespace AutoGarage.Controller
                 _model.DRN = updatedModel.DRN;
                 _model.Engine = updatedModel.Engine;
                 _model.EngineId = updatedModel.EngineId;
-                _model.IsDeleted = updatedModel.IsDeleted;
+
                 _model.Owner = updatedModel.Owner;
                 _model.OwnerId = updatedModel.OwnerId;
                 _model.Year = updatedModel.Year;
@@ -156,9 +148,9 @@ namespace AutoGarage.Controller
         public void DeleteAutomobile(int Id)
         {
             var model = context.Automobiles.FirstOrDefault(a => a.Id == Id);
-            model.IsDeleted = true;
-            EditEntity<AutomobileDataModel>(model);
-          
+            context.Automobiles.Remove(model);
+            context.Maintenances.Remove(model.MaintenanceCard);
+            context.SaveChanges();
         }
 
         public ServiceHistoryViewModel GetServiceHistoryViewModel(int id)
@@ -187,17 +179,17 @@ namespace AutoGarage.Controller
         public IList<MaintenanceCardDataModel> GetMaintenanceCardDataModelsByChassisCode(string chassisNumber)
         {
             IList<MaintenanceCardDataModel> result = new List<MaintenanceCardDataModel>();
-            foreach(var a in context.Automobiles)
+            foreach (var a in context.Automobiles)
             {
-                if(a.ChassiNumber == chassisNumber)
+                if (a.ChassiNumber == chassisNumber)
                     result.Add(a.MaintenanceCard);
             }
-            return result; 
+            return result;
         }
 
-        public string GetOwnerNameByMaintenanceCardId (int id)
+        public string GetOwnerNameByMaintenanceCardId(int id)
         {
-            return context.Automobiles.First(a => a.MaintenanceCardId == id).Owner.Name;     
+            return context.Automobiles.First(a => a.MaintenanceCardId == id).Owner.Name;
         }
 
         public void SaveMaintenanceCard(MaintenanceCardDataModel Model)
@@ -205,24 +197,26 @@ namespace AutoGarage.Controller
             EditEntity<MaintenanceCardDataModel>(Model);
         }
 
+
+
         public CarViewModel[] GetAutomobilesAfterDate(DateTime date)
         {
             var result = context.Automobiles
-                .Where(a => a.MaintenanceCard.DateOfArrival > date && a.IsDeleted == false).ToArray();
+                .Where(a => a.MaintenanceCard.DateOfArrival > date).ToArray();
             return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
         }
 
         public CarViewModel[] GetAutomobilesBeforeDate(DateTime date)
         {
             var result = context.Automobiles
-                .Where(a => a.MaintenanceCard.DateOfArrival < date && a.IsDeleted == false).ToArray();
+                .Where(a => a.MaintenanceCard.DateOfArrival < date).ToArray();
             return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
         }
 
         public CarViewModel[] GetAllAutomobilesWithUnfinishedRepairs()
         {
             var result = context.Automobiles
-                .Where(a => a.MaintenanceCard.Finished == false && a.IsDeleted == false).ToArray();
+                .Where(a => a.MaintenanceCard.Finished == false).ToArray();
             return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
         }
 

@@ -7,7 +7,7 @@ using AutoGarage.ViewModels;
 using AutoGarage.Data;
 using AutoGarage.DataModel.AutomobileDataModels;
 using AutoGarage.DataModel.SparePartsDataModels;
-
+using AutoGarage.DataModel.MaintenanceCardDataModel;
 namespace AutoGarage.Controller
 {
     public class MiscController : Controller
@@ -151,7 +151,6 @@ namespace AutoGarage.Controller
             var parts = context.Spare_Parts.ToList();
             foreach (var p in parts)
             {
-                if(!p.IsDeleted)
                 result.Add(new PartsViewModel() { Id = p.Id, Name = p.Name, Price = p.Price });
             }
             return result;
@@ -159,7 +158,7 @@ namespace AutoGarage.Controller
 
         public SparePartsDataModel GetPartsById(int id)
         {
-            return context.Spare_Parts.FirstOrDefault(p => p.Id == id && p.IsDeleted == false);
+            return context.Spare_Parts.FirstOrDefault(p => p.Id == id);
         }
 
 
@@ -202,7 +201,7 @@ namespace AutoGarage.Controller
             {
                 part.Name = model.Name;
                 part.Price = model.Price;
-                part.IsDeleted = model.IsDeleted;
+
 
                 this.EditEntity<SparePartsDataModel>(part);
             }
@@ -214,18 +213,52 @@ namespace AutoGarage.Controller
 
         }
 
-        public void DeletePartById(int id)
+        public bool DeletePartById(int id)
         {
             var part = context.Spare_Parts.FirstOrDefault(p => p.Id == id);
-            part.IsDeleted = true;
-            this.EditEntity<SparePartsDataModel>(part);
-        }
+            if (context.Maintenances.FirstOrDefault(m => m.Parts.FirstOrDefault(p=>p.Id == id) != null) != null)
+            {
+                return false;
+            }
 
-        public bool IsPartDeleted(int id)
+            context.Spare_Parts.Remove(part);
+            context.SaveChanges();
+
+            return true;
+        }
+        /// <summary>
+        /// Makes the MANY to MANY relationship
+        /// </summary>
+        /// <param name="idPart"></param>
+        /// <param name="idCard"></param>
+        public void LinkPartsToMaintenanceCards(int idPart, int idCard)
         {
-            var part = context.Spare_Parts.FirstOrDefault(p => p.Id == id);
-            return part.IsDeleted;
+            var part = context.Spare_Parts.First(p => p.Id == idPart);
+            var mc = context.Maintenances.First(m => m.Id == idCard);
+            part.MaintenanceCards.Add(mc);
+            mc.Parts.Add(part);
+
+
+            /*context.CardsParts.Add(new DataModel.CardsParts()
+            {
+                SparePart = part,
+                SparePartId = part.Id,
+                MaintenanceCard = mc,
+                MaintenanceCardId = mc.Id
+            });*/
+
+            context.SaveChanges();
         }
 
+        public void UnlinkPartsAndMaintenanceCards(int idPart, int idCard)
+        {
+            var part = context.Spare_Parts.First(p => p.Id == idPart);
+            var mc = context.Maintenances.First(m => m.Id == idCard);
+
+            part.MaintenanceCards.Remove(mc);
+            mc.Parts.Remove(part);
+
+            context.SaveChanges();
+        }
     }
 }

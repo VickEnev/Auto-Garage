@@ -20,7 +20,7 @@ namespace AutoGarage
         private AutomobileController AutomobileController { get; set; }
         private MiscController MiscController { get; set; }
         private MaintenanceCardDataModel CardModel { get; set; }
-        private decimal AllPartsPrice { get; set; } = 0;
+     
 
         public Card()
         {
@@ -54,6 +54,8 @@ namespace AutoGarage
                 lb_Parts.Items.AddRange(Array.ConvertAll(CardModel.Parts.ToArray(),
                     ConvertDataModel_To_ViewModel));
 
+            tb_labour.Text = $"{ CardModel.TotalPrice - CardModel.Parts.Sum(p => p.Price)}";
+
             Task t = new Task(() =>
             {
                 var name = AutomobileController.GetOwnerNameByMaintenanceCardId(CardModel.Id);
@@ -68,24 +70,19 @@ namespace AutoGarage
         private void b_ADD_Click(object sender, EventArgs e)
         {
             var partsDialog = new PartsDialog(MiscController, true);
+           
+
             if (partsDialog.ShowDialog() == DialogResult.OK)
             {
-
-                if (lb_Parts.Items.Count > 0)
-                    lb_Parts.Items.Clear();
-
                 if (partsDialog.SelectedParts != null)
                     lb_Parts.Items.AddRange(partsDialog
                        .SelectedParts
                        .ToArray());
 
-                AllPartsPrice = SumPartsPrice();
-
                 decimal.TryParse(tb_labour.Text, out decimal labour);
-                CardModel.TotalPrice = AllPartsPrice + labour;
+                CardModel.TotalPrice = SumPartsPrice() + labour;
 
-
-                lbl_PPrice.Text = CardModel.TotalPrice.ToString();
+                lbl_PPrice.Text = CardModel.TotalPrice.ToString("C");
             }
         }
 
@@ -93,7 +90,12 @@ namespace AutoGarage
         private void b_Remove_Click(object sender, EventArgs e)
         {
             if (lb_Parts.SelectedIndex > -1)
+            {
+                var part = ConvertViewModel_To_DataModel((PartsViewModel)lb_Parts.SelectedItem);
+                MiscController.UnlinkPartsAndMaintenanceCards(part.Id, CardModel.Id);
                 lb_Parts.Items.RemoveAt(lb_Parts.SelectedIndex);
+            }
+
         }
 
         //update button
@@ -124,8 +126,11 @@ namespace AutoGarage
                 CardModel.DateOfDeparture = departureTime;
                 CardModel.EmployeeName = employeeName;
                 CardModel.Description = description;
-                CardModel.Parts = new List<SparePartsDataModel>();
-                CardModel.Parts.AddRange(parts);
+                
+                foreach(var p in parts)
+                {
+                   MiscController.LinkPartsToMaintenanceCards(p.Id, this.CardModel.Id);
+                }
 
                 if (departureTime > CardModel.DateOfArrival)
                 {
@@ -145,7 +150,7 @@ namespace AutoGarage
 
         private bool ValidateInput()
         {
-            if (dtp_departure.Value > dtp_arrival.Value)
+            if (dtp_departure.Value >= dtp_arrival.Value)
             {
                 if (double.TryParse(tb_labour.Text, out double labourPrice))
                 {
@@ -166,7 +171,7 @@ namespace AutoGarage
 
         private SparePartsDataModel ConvertViewModel_To_DataModel(PartsViewModel p)
         {
-            return new SparePartsDataModel() { Id = p.Id, Name = p.Name, Price = p.Price, IsDeleted = false };
+            return new SparePartsDataModel() { Id = p.Id, Name = p.Name, Price = p.Price };
         }
 
         private PartsViewModel ConvertDataModel_To_ViewModel(SparePartsDataModel p)
@@ -185,7 +190,7 @@ namespace AutoGarage
         private void tb_labour_Leave(object sender, EventArgs e)
         {
             if (decimal.TryParse(tb_labour.Text, out decimal labour))
-                CardModel.TotalPrice = AllPartsPrice + labour;
+                CardModel.TotalPrice = SumPartsPrice() + labour;
 
             lbl_PPrice.Text = CardModel.TotalPrice.ToString("C");
         }

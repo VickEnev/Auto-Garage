@@ -81,27 +81,29 @@ namespace AutoGarage
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-
-            var token = new AutomobileSaveToken()
+            if (Validation())
             {
-                DRN = txt_DRN.Text,
-                EngineID = ((EngineViewModel)cmb_Engine.SelectedItem).Id,
-                Year = int.Parse(txt_Year.Text),
-                ChassiNumber = txt_Chassi.Text,
-                ColorId = ((ColorViewModel)cmb_Color.SelectedItem).Id,
-                OwnerName = txt_Owner.Text,
-                OwnerTelephoneNumber = txt_Telephone.Text,
-                Description = rtxt_Description.Text
-            };
+                var token = new AutomobileSaveToken()
+                {
+                    DRN = txt_DRN.Text,
+                    EngineID = ((EngineViewModel)cmb_Engine.SelectedItem).Id,
+                    Year = int.Parse(txt_Year.Text),
+                    ChassiNumber = txt_Chassi.Text,
+                    ColorId = ((ColorViewModel)cmb_Color.SelectedItem).Id,
+                    OwnerName = txt_Owner.Text,
+                    OwnerTelephoneNumber = txt_Telephone.Text,
+                    Description = rtxt_Description.Text
+                };
 
-            if (Model == null)
-                automobileController.SaveAutomobile(token);
-            else
-                automobileController.UpdateAutomobile(token, Model);
-              
+                if (Model == null)
+                    automobileController.SaveAutomobile(token);
+                else
+                    automobileController.UpdateAutomobile(token, Model);
 
 
-            this.Close();
+
+                this.Close();
+            }
         }
 
         private void btn_Clear_Click(object sender, EventArgs e)
@@ -191,7 +193,57 @@ namespace AutoGarage
             }
         }
 
+        private bool Validation()
+        {
+            if (txt_Telephone.Text.Length < 10)
+            {
+                MessageBox.Show("Invalid telephone number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txt_Year.Text.Length < 4)
+            {
+                MessageBox.Show("Invalid year!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txt_Owner.Text.Length < 2)
+            {
+                MessageBox.Show("Enter a valid owner name!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (cmb_Brand.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select a brand!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (cmb_Color.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select a color!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (cmb_Model.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select a model!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (cmb_Engine.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select an engine!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (txt_Chassi.Text.Length < 1)
+            {
+                MessageBox.Show("Enter a valid chassi number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if(rtxt_Description.Text.Length < 1)
+            {
+                MessageBox.Show("Enter a valid descripion!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
+            return true;
+
+        }
 
     }
 
