@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoGarage.DataModel.AutomobileDataModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,6 +29,9 @@ namespace AutoGarage.DataModel.MaintenanceCardDataModel
         public decimal TotalPrice { get; set; }
 
         public bool Finished { get; set; }
+
+        public virtual AutomobileDataModel Automobile { get; set; }
+        public int AutomobileId { get; set; }
 
     }
 }

@@ -12,6 +12,11 @@ namespace AutoGarage.DataModel.AutomobileDataModels
     public class AutomobileDataModel
     {
 
+        public AutomobileDataModel()
+        {
+            MaintenanceCards = new HashSet<MaintenanceCardDataModel.MaintenanceCardDataModel>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -31,8 +36,8 @@ namespace AutoGarage.DataModel.AutomobileDataModels
         public virtual ColorDataModel Color { get; set; }
         public int ColorId { get; set; }
 
-        public int MaintenanceCardId { get; set; }
-        public virtual MaintenanceCardDataModel.MaintenanceCardDataModel MaintenanceCard { get; set; }
+        
+        public virtual ICollection<MaintenanceCardDataModel.MaintenanceCardDataModel> MaintenanceCards { get; set; }
 
         
     }

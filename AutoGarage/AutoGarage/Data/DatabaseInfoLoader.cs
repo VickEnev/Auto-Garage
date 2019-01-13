@@ -66,10 +66,8 @@ namespace AutoGarage.Data
                 var brandModels = new List<BrandDataModel>();
                 var carModelsModels = new List<CarModelDataModel>();
 
-                string[] brands = File.ReadAllLines(FileNameBrands);
-                string[] models = File.ReadAllLines(FileNameModels);
-
-
+                string[] brands = File.ReadAllLines(FileNameBrands); 
+                string[] models = File.ReadAllLines(FileNameModels); // 51
 
                 int lineN = 0;
 

@@ -238,15 +238,6 @@ namespace AutoGarage.Controller
             part.MaintenanceCards.Add(mc);
             mc.Parts.Add(part);
 
-
-            /*context.CardsParts.Add(new DataModel.CardsParts()
-            {
-                SparePart = part,
-                SparePartId = part.Id,
-                MaintenanceCard = mc,
-                MaintenanceCardId = mc.Id
-            });*/
-
             context.SaveChanges();
         }
 

@@ -80,5 +80,23 @@ namespace AutoGarage
             var card = new Card(AutomobileController, MiscController, Cards[lb_MH.SelectedIndex]);
             card.ShowDialog();
         }
+
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            AutomobileController.AddMaintenanceCard(this.AutomobileId);
+        }
+
+        private void btn_refresh_Click(object sender, EventArgs e)
+        {
+            lb_MH.Items.Clear();
+            PopulateMaintenanceCardListBox();
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            var r = MessageBox.Show("Are you sure you want to delete this card?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (r == DialogResult.Yes)
+                AutomobileController.DeleteMaintenanceCard(AutomobileId, Cards[lb_MH.SelectedIndex].Id);
+        }
     }
 }

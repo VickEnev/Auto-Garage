@@ -20,7 +20,7 @@ namespace AutoGarage
         private AutomobileController AutomobileController { get; set; }
         private MiscController MiscController { get; set; }
         private MaintenanceCardDataModel CardModel { get; set; }
-     
+
 
         public Card()
         {
@@ -43,6 +43,7 @@ namespace AutoGarage
 
         private void AssignValues()
         {
+            lbl_cardNumber.Text = CardModel.Id.ToString();
             dtp_arrival.Value = CardModel.DateOfArrival;
             dtp_departure.Value = CardModel.DateOfDeparture;
             if (CardModel.Description != null)
@@ -53,12 +54,13 @@ namespace AutoGarage
             if (CardModel.Parts.Count > 0)
                 lb_Parts.Items.AddRange(Array.ConvertAll(CardModel.Parts.ToArray(),
                     ConvertDataModel_To_ViewModel));
+            cb_Finished.Checked = CardModel.Finished;
 
             tb_labour.Text = $"{ CardModel.TotalPrice - CardModel.Parts.Sum(p => p.Price)}";
 
             Task t = new Task(() =>
             {
-                var name = AutomobileController.GetOwnerNameByMaintenanceCardId(CardModel.Id);
+                var name = AutomobileController.GetOwnerName(CardModel.AutomobileId);
                 this.Invoke(new Action(() => { tb_Client.Text = name; }));
             });
             t.Start();
@@ -70,7 +72,7 @@ namespace AutoGarage
         private void b_ADD_Click(object sender, EventArgs e)
         {
             var partsDialog = new PartsDialog(MiscController, true);
-           
+
 
             if (partsDialog.ShowDialog() == DialogResult.OK)
             {
@@ -123,20 +125,21 @@ namespace AutoGarage
                     lb_Parts.Items.Cast<PartsViewModel>().ToArray(),
                     ConvertViewModel_To_DataModel);
 
+
                 CardModel.DateOfDeparture = departureTime;
                 CardModel.EmployeeName = employeeName;
                 CardModel.Description = description;
-                
-                foreach(var p in parts)
+                CardModel.DateOfDeparture = departureTime;
+
+                if (CardModel.DateOfArrival.Date != arrivalTime.Date)
+                CardModel.DateOfArrival = arrivalTime;
+
+                foreach (var p in parts)
                 {
-                   MiscController.LinkPartsToMaintenanceCards(p.Id, this.CardModel.Id);
+                    MiscController.LinkPartsToMaintenanceCards(p.Id, this.CardModel.Id);
                 }
 
-                if (departureTime > CardModel.DateOfArrival)
-                {
-                    CardModel.DateOfDeparture = departureTime;
-                    CardModel.Finished = true;
-                }
+                CardModel.Finished = cb_Finished.Checked;
 
                 AutomobileController.SaveMaintenanceCard(CardModel);
                 this.Close();
@@ -150,7 +153,7 @@ namespace AutoGarage
 
         private bool ValidateInput()
         {
-            if (dtp_departure.Value >= dtp_arrival.Value)
+            if (dtp_departure.Value.Date >= dtp_arrival.Value.Date)
             {
                 if (double.TryParse(tb_labour.Text, out double labourPrice))
                 {
@@ -158,10 +161,7 @@ namespace AutoGarage
                     {
                         if (tb_Employee.Text != "")
                         {
-                            if (lb_Parts.Items.Count > 0)
-                            {
-                                return true;
-                            }
+                            return true;
                         }
                     }
                 }

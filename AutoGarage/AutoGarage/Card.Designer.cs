@@ -48,12 +48,15 @@
             this.dtp_departure = new System.Windows.Forms.DateTimePicker();
             this.rtb_Description = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lbl_cardNumber = new System.Windows.Forms.Label();
+            this.cb_Finished = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 23);
+            this.label1.Location = new System.Drawing.Point(26, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 0;
@@ -62,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 56);
+            this.label2.Location = new System.Drawing.Point(26, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 1;
@@ -71,7 +74,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 84);
+            this.label3.Location = new System.Drawing.Point(26, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 13);
             this.label3.TabIndex = 2;
@@ -80,7 +83,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 114);
+            this.label4.Location = new System.Drawing.Point(26, 154);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 13);
             this.label4.TabIndex = 3;
@@ -89,7 +92,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 147);
+            this.label5.Location = new System.Drawing.Point(26, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 13);
             this.label5.TabIndex = 4;
@@ -98,7 +101,7 @@
             // lbl_PPrice
             // 
             this.lbl_PPrice.AutoSize = true;
-            this.lbl_PPrice.Location = new System.Drawing.Point(121, 147);
+            this.lbl_PPrice.Location = new System.Drawing.Point(119, 187);
             this.lbl_PPrice.Name = "lbl_PPrice";
             this.lbl_PPrice.Size = new System.Drawing.Size(46, 13);
             this.lbl_PPrice.TabIndex = 5;
@@ -107,7 +110,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 187);
+            this.label7.Location = new System.Drawing.Point(26, 227);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 13);
             this.label7.TabIndex = 6;
@@ -116,7 +119,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(501, 23);
+            this.label8.Location = new System.Drawing.Point(404, 23);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 7;
@@ -125,7 +128,7 @@
             // tb_Client
             // 
             this.tb_Client.BackColor = System.Drawing.Color.White;
-            this.tb_Client.Location = new System.Drawing.Point(124, 20);
+            this.tb_Client.Location = new System.Drawing.Point(122, 60);
             this.tb_Client.Name = "tb_Client";
             this.tb_Client.ReadOnly = true;
             this.tb_Client.Size = new System.Drawing.Size(100, 20);
@@ -133,14 +136,14 @@
             // 
             // tb_Employee
             // 
-            this.tb_Employee.Location = new System.Drawing.Point(124, 111);
+            this.tb_Employee.Location = new System.Drawing.Point(122, 151);
             this.tb_Employee.Name = "tb_Employee";
             this.tb_Employee.Size = new System.Drawing.Size(100, 20);
             this.tb_Employee.TabIndex = 11;
             // 
             // tb_labour
             // 
-            this.tb_labour.Location = new System.Drawing.Point(124, 180);
+            this.tb_labour.Location = new System.Drawing.Point(122, 220);
             this.tb_labour.Name = "tb_labour";
             this.tb_labour.Size = new System.Drawing.Size(100, 20);
             this.tb_labour.TabIndex = 12;
@@ -166,7 +169,7 @@
             // 
             // b_Remove
             // 
-            this.b_Remove.Location = new System.Drawing.Point(542, 277);
+            this.b_Remove.Location = new System.Drawing.Point(490, 277);
             this.b_Remove.Name = "b_Remove";
             this.b_Remove.Size = new System.Drawing.Size(64, 23);
             this.b_Remove.TabIndex = 15;
@@ -176,7 +179,7 @@
             // 
             // b_OK
             // 
-            this.b_OK.Location = new System.Drawing.Point(31, 348);
+            this.b_OK.Location = new System.Drawing.Point(29, 388);
             this.b_OK.Name = "b_OK";
             this.b_OK.Size = new System.Drawing.Size(75, 23);
             this.b_OK.TabIndex = 16;
@@ -186,7 +189,7 @@
             // 
             // b_CANCEL
             // 
-            this.b_CANCEL.Location = new System.Drawing.Point(124, 348);
+            this.b_CANCEL.Location = new System.Drawing.Point(122, 388);
             this.b_CANCEL.Name = "b_CANCEL";
             this.b_CANCEL.Size = new System.Drawing.Size(75, 23);
             this.b_CANCEL.TabIndex = 17;
@@ -196,21 +199,21 @@
             // 
             // dtp_arrival
             // 
-            this.dtp_arrival.Location = new System.Drawing.Point(124, 50);
+            this.dtp_arrival.Location = new System.Drawing.Point(122, 90);
             this.dtp_arrival.Name = "dtp_arrival";
             this.dtp_arrival.Size = new System.Drawing.Size(200, 20);
             this.dtp_arrival.TabIndex = 18;
             // 
             // dtp_departure
             // 
-            this.dtp_departure.Location = new System.Drawing.Point(124, 78);
+            this.dtp_departure.Location = new System.Drawing.Point(122, 118);
             this.dtp_departure.Name = "dtp_departure";
             this.dtp_departure.Size = new System.Drawing.Size(200, 20);
             this.dtp_departure.TabIndex = 19;
             // 
             // rtb_Description
             // 
-            this.rtb_Description.Location = new System.Drawing.Point(124, 223);
+            this.rtb_Description.Location = new System.Drawing.Point(122, 263);
             this.rtb_Description.Name = "rtb_Description";
             this.rtb_Description.Size = new System.Drawing.Size(200, 96);
             this.rtb_Description.TabIndex = 20;
@@ -219,17 +222,49 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 226);
+            this.label6.Location = new System.Drawing.Point(26, 266);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(69, 26);
             this.label6.TabIndex = 21;
             this.label6.Text = "Description\r\nof work done";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(26, 23);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Card Number";
+            // 
+            // lbl_cardNumber
+            // 
+            this.lbl_cardNumber.AutoSize = true;
+            this.lbl_cardNumber.Location = new System.Drawing.Point(119, 23);
+            this.lbl_cardNumber.Name = "lbl_cardNumber";
+            this.lbl_cardNumber.Size = new System.Drawing.Size(13, 13);
+            this.lbl_cardNumber.TabIndex = 23;
+            this.lbl_cardNumber.Text = "0";
+            // 
+            // cb_Finished
+            // 
+            this.cb_Finished.AutoSize = true;
+            this.cb_Finished.Location = new System.Drawing.Point(162, 23);
+            this.cb_Finished.Name = "cb_Finished";
+            this.cb_Finished.Size = new System.Drawing.Size(65, 17);
+            this.cb_Finished.TabIndex = 24;
+            this.cb_Finished.Text = "Finished";
+            this.cb_Finished.UseVisualStyleBackColor = true;
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 394);
+            this.ClientSize = new System.Drawing.Size(646, 422);
+            this.Controls.Add(this.cb_Finished);
+            this.Controls.Add(this.lbl_cardNumber);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.rtb_Description);
             this.Controls.Add(this.dtp_departure);
@@ -284,5 +319,8 @@
         private System.Windows.Forms.DateTimePicker dtp_departure;
         private System.Windows.Forms.RichTextBox rtb_Description;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lbl_cardNumber;
+        private System.Windows.Forms.CheckBox cb_Finished;
     }
 }

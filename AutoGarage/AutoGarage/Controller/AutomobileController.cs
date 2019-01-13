@@ -70,8 +70,9 @@ namespace AutoGarage.Controller
             var model = MakeModelFromToken(token);
             var mc = new MaintenanceCardDataModel();
 
-            model.MaintenanceCard = mc;
-            model.MaintenanceCardId = mc.Id;
+            model.MaintenanceCards.Add(mc);
+            mc.Automobile = model;
+            mc.AutomobileId = model.Id;
 
             context.Automobiles.Add(model);
             context.Maintenances.Add(mc);
@@ -149,9 +150,74 @@ namespace AutoGarage.Controller
         {
             var model = context.Automobiles.FirstOrDefault(a => a.Id == Id);
             context.Automobiles.Remove(model);
-            context.Maintenances.Remove(model.MaintenanceCard);
+            foreach (var m in model.MaintenanceCards)
+            {
+                context.Maintenances.Remove(m);
+            }
+
             context.SaveChanges();
         }
+
+        public string GetOwnerName(int automobileId)
+        {
+            return context.Automobiles.First(a => a.Id == automobileId).Owner.Name;
+        }
+
+        private CarViewModel ConvertDataModel_To_ViewModel(AutomobileDataModel model)
+        {
+            return new CarViewModel() { ID = model.Id, DRN = model.DRN, ModelName = model.Engine.CarModel.Name };
+        }
+
+        // queries 
+        public CarViewModel[] GetAutomobilesAfterDate(DateTime date)
+        {
+            List<AutomobileDataModel> result = new List<AutomobileDataModel>();
+            foreach (var auto in context.Automobiles)
+            {
+                foreach (var card in auto.MaintenanceCards)
+                {
+                    if (card.DateOfArrival.Date > date.Date)
+                        if (!result.Contains(auto))
+                            result.Add(auto);
+                }
+            }
+
+            return Array.ConvertAll(result.ToArray(), ConvertDataModel_To_ViewModel);
+        }
+
+        public CarViewModel[] GetAutomobilesBeforeDate(DateTime date)
+        {
+            List<AutomobileDataModel> result = new List<AutomobileDataModel>();
+            foreach (var auto in context.Automobiles)
+            {
+                foreach (var card in auto.MaintenanceCards)
+                {
+                    if (card.DateOfArrival.Date < date.Date)
+                        if (!result.Contains(auto))
+                            result.Add(auto);
+                }
+            }
+            return Array.ConvertAll(result.ToArray(), ConvertDataModel_To_ViewModel);
+        }
+
+        public CarViewModel[] GetAllAutomobilesWithUnfinishedRepairs()
+        {
+            List<AutomobileDataModel> result = new List<AutomobileDataModel>();
+            foreach (var auto in context.Automobiles)
+            {
+                foreach (var card in auto.MaintenanceCards)
+                {
+                    if (!card.Finished)
+                        if (!result.Contains(auto))
+                            result.Add(auto);
+                }
+            }
+            return Array.ConvertAll(result.ToArray(), ConvertDataModel_To_ViewModel);
+        }
+
+        // end queries
+
+        // Maintenance card control
 
         public ServiceHistoryViewModel GetServiceHistoryViewModel(int id)
         {
@@ -182,47 +248,56 @@ namespace AutoGarage.Controller
             foreach (var a in context.Automobiles)
             {
                 if (a.ChassiNumber == chassisNumber)
-                    result.Add(a.MaintenanceCard);
+                {
+                    foreach (var card in a.MaintenanceCards)
+                    {
+                        result.Add(card);
+                    }
+                }
             }
             return result;
         }
 
-        public string GetOwnerNameByMaintenanceCardId(int id)
-        {
-            return context.Automobiles.First(a => a.MaintenanceCardId == id).Owner.Name;
-        }
-
+      
         public void SaveMaintenanceCard(MaintenanceCardDataModel Model)
         {
             EditEntity<MaintenanceCardDataModel>(Model);
         }
 
+       
 
-
-        public CarViewModel[] GetAutomobilesAfterDate(DateTime date)
+        public void AddMaintenanceCard(int automobileId)
         {
-            var result = context.Automobiles
-                .Where(a => a.MaintenanceCard.DateOfArrival > date).ToArray();
-            return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
+            var auto = context.Automobiles.FirstOrDefault(a => a.Id == automobileId);
+            if (auto != null)
+            {
+                var mc = new MaintenanceCardDataModel();
+
+                auto.MaintenanceCards.Add(mc);
+                mc.Automobile = auto;
+                mc.AutomobileId = auto.Id;
+
+
+                context.Maintenances.Add(mc);
+                context.SaveChanges();
+            }
         }
 
-        public CarViewModel[] GetAutomobilesBeforeDate(DateTime date)
+
+        public void DeleteMaintenanceCard(int automobileId, int cardId)
         {
-            var result = context.Automobiles
-                .Where(a => a.MaintenanceCard.DateOfArrival < date).ToArray();
-            return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
+            var auto = context.Automobiles.FirstOrDefault(a => a.Id == automobileId);
+            var mc = context.Maintenances.FirstOrDefault(m => m.Id == cardId);
+
+            auto.MaintenanceCards.Remove(mc);
+            mc.Automobile = null;
+            mc.AutomobileId = -1;
+
+            context.Maintenances.Remove(mc);
+
+            context.SaveChanges();
         }
 
-        public CarViewModel[] GetAllAutomobilesWithUnfinishedRepairs()
-        {
-            var result = context.Automobiles
-                .Where(a => a.MaintenanceCard.Finished == false).ToArray();
-            return Array.ConvertAll(result, ConvertDataModel_To_ViewModel);
-        }
-
-        private CarViewModel ConvertDataModel_To_ViewModel(AutomobileDataModel model)
-        {
-            return new CarViewModel() { ID = model.Id, DRN = model.DRN, ModelName = model.Engine.CarModel.Name };
-        }
+        // end maintenance card control
     }
 }

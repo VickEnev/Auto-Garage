@@ -60,7 +60,7 @@
             this.label1.Location = new System.Drawing.Point(45, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 11;
             this.label1.Text = "Engine Volume";
             // 
             // label2
@@ -69,7 +69,7 @@
             this.label2.Location = new System.Drawing.Point(45, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 10;
             this.label2.Text = "Engine Code";
             // 
             // btn_Add
@@ -78,7 +78,7 @@
             this.btn_Add.Location = new System.Drawing.Point(106, 235);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 6;
+            this.btn_Add.TabIndex = 4;
             this.btn_Add.Text = "Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
@@ -89,7 +89,7 @@
             this.btn_Cancel.Location = new System.Drawing.Point(187, 235);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
-            this.btn_Cancel.TabIndex = 7;
+            this.btn_Cancel.TabIndex = 5;
             this.btn_Cancel.Text = "Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
@@ -109,7 +109,7 @@
             this.lbl_CarModel.Location = new System.Drawing.Point(45, 201);
             this.lbl_CarModel.Name = "lbl_CarModel";
             this.lbl_CarModel.Size = new System.Drawing.Size(113, 13);
-            this.lbl_CarModel.TabIndex = 10;
+            this.lbl_CarModel.TabIndex = 15;
             this.lbl_CarModel.Text = "Car Model placeholder";
             // 
             // tb_horsePower
@@ -117,7 +117,7 @@
             this.tb_horsePower.Location = new System.Drawing.Point(48, 141);
             this.tb_horsePower.Name = "tb_horsePower";
             this.tb_horsePower.Size = new System.Drawing.Size(151, 20);
-            this.tb_horsePower.TabIndex = 11;
+            this.tb_horsePower.TabIndex = 3;
             // 
             // label4
             // 

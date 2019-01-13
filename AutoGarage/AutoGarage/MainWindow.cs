@@ -113,16 +113,19 @@ namespace AutoGarage
         {
             try
             {
-                var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
-                Dependancies.AutomobileController.DeleteAutomobile(selected);
+                var r = MessageBox.Show("Are you sure you want to delete this entry?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (r == DialogResult.Yes)
+                {
+                    var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
+                    Dependancies.AutomobileController.DeleteAutomobile(selected);
+                }
             }
-            catch (Exception ex) { }
+            catch { }
 
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
+        {          
             Task t = new Task(() => LoadData());
             t.Start();
         }
@@ -135,7 +138,7 @@ namespace AutoGarage
                 ServiceHistory serviceHistory = new ServiceHistory(selected, Dependancies.AutomobileController, Dependancies.MiscController);
                 serviceHistory.ShowDialog();
             }
-            catch (Exception ex) { }
+            catch{ }
         }
 
         private void allPartsToolStripMenuItem_Click(object sender, EventArgs e)
