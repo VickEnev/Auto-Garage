@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoGarage.Controller
+﻿namespace AutoGarage.Controller
 {
+    /// <summary>
+    /// Родителски клас за всички контролери
+    /// </summary>
     public class Controller
     {
         protected Data.AutomobileDbContext context { get; set; }
@@ -24,13 +21,15 @@ namespace AutoGarage.Controller
         /// <param name="model">The Entity you wish to edit</param>
         protected void EditEntity<T>(object model) where T : class
         {
-            var entity = (T)model;
-            
-            context.Configuration.AutoDetectChangesEnabled = false;
-            context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                var entity = (T)model;
 
-            context.SaveChanges();
-            context.Configuration.AutoDetectChangesEnabled = true;
+                context.Configuration.AutoDetectChangesEnabled = false;
+                context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+
+                context.SaveChanges();
+                context.Configuration.AutoDetectChangesEnabled = true;
+           
+            
         }
     }
 }

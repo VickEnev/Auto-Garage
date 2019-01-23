@@ -50,10 +50,12 @@
             this.rtxt_Description = new System.Windows.Forms.RichTextBox();
             this.cmb_Color = new System.Windows.Forms.ComboBox();
             this.cmb_Engine = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txt_DRN
             // 
+            this.txt_DRN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_DRN.Location = new System.Drawing.Point(88, 12);
             this.txt_DRN.Name = "txt_DRN";
             this.txt_DRN.Size = new System.Drawing.Size(188, 20);
@@ -173,10 +175,10 @@
             // 
             // txt_Telephone
             // 
-            this.txt_Telephone.Location = new System.Drawing.Point(389, 103);
-            this.txt_Telephone.MaxLength = 10;
+            this.txt_Telephone.Location = new System.Drawing.Point(423, 103);
+            this.txt_Telephone.MaxLength = 9;
             this.txt_Telephone.Name = "txt_Telephone";
-            this.txt_Telephone.Size = new System.Drawing.Size(177, 20);
+            this.txt_Telephone.Size = new System.Drawing.Size(143, 20);
             this.txt_Telephone.TabIndex = 8;
             // 
             // cmb_Brand
@@ -245,11 +247,21 @@
             this.cmb_Engine.TabIndex = 4;
             this.cmb_Engine.SelectedIndexChanged += new System.EventHandler(this.ComboBoxItemSelected);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(386, 106);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 13);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "+359";
+            // 
             // AutomobileDataInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(596, 321);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cmb_Engine);
             this.Controls.Add(this.cmb_Color);
             this.Controls.Add(this.rtxt_Description);
@@ -307,5 +319,6 @@
         private System.Windows.Forms.RichTextBox rtxt_Description;
         private System.Windows.Forms.ComboBox cmb_Color;
         private System.Windows.Forms.ComboBox cmb_Engine;
+        private System.Windows.Forms.Label label3;
     }
 }

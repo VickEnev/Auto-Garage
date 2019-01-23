@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoGarage.ViewModels;
-using AutoGarage.Data;
+﻿using AutoGarage.Data;
 using AutoGarage.DataModel.AutomobileDataModels;
 using AutoGarage.DataModel.SparePartsDataModels;
-using AutoGarage.DataModel.MaintenanceCardDataModel;
+using AutoGarage.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 namespace AutoGarage.Controller
 {
+    /// <summary>
+    /// Управлява по-малките операции с по-проста логика
+    /// </summary>
     public class MiscController : Controller
     {
 
@@ -20,6 +20,11 @@ namespace AutoGarage.Controller
         }
 
         // read methods 
+
+        /// <summary>
+        /// Връща всички марки
+        /// </summary>
+        /// <returns></returns>
         public List<object> GetAllBrands()
         {
             try
@@ -40,7 +45,7 @@ namespace AutoGarage.Controller
             return null;
         }
         /// <summary>
-        /// Gets all car models in the database.
+        /// Връща всички модели на автомобили в базата данни
         /// </summary>
         /// <returns></returns>
         public List<CarModelViewModel> GetAllModels()
@@ -64,7 +69,7 @@ namespace AutoGarage.Controller
             return null;
         }
         /// <summary>
-        /// Gets all car models for a specific brand.
+        /// Връща всички модели за специфична марка
         /// </summary>
         /// <param name="brandId"></param>
         /// <returns></returns>
@@ -90,6 +95,10 @@ namespace AutoGarage.Controller
             return null;
         }
 
+        /// <summary>
+        /// Връща всички цветове
+        /// </summary>
+        /// <returns></returns>
         public List<ColorViewModel> GetAllColors()
         {
             try
@@ -111,7 +120,11 @@ namespace AutoGarage.Controller
             return null;
         }
 
-
+        /// <summary>
+        /// Връща всички двигатели по име на модел
+        /// </summary>
+        /// <param name="ModelName"></param>
+        /// <returns></returns>
         public List<EngineViewModel> GetAllEnginesByModel(string ModelName)
         {
             try
@@ -132,7 +145,12 @@ namespace AutoGarage.Controller
 
             return null;
         }
-
+        /// <summary>
+        /// Връща модел по име на модел и име на марка
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="brandName"></param>
+        /// <returns></returns>
         public CarModelDataModel GetModelByName(string modelName, string brandName)
         {
             try
@@ -145,6 +163,10 @@ namespace AutoGarage.Controller
             return null;
         }
 
+        /// <summary>
+        /// Връща View модел на всички части в базата данни
+        /// </summary>
+        /// <returns></returns>
         public IList<PartsViewModel> GetSparePartsViewModels()
         {
             var result = new List<PartsViewModel>();
@@ -156,13 +178,19 @@ namespace AutoGarage.Controller
             return result;
         }
 
+        /// <summary>
+        /// Връща част по Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public SparePartsDataModel GetPartsById(int id)
         {
             return context.Spare_Parts.FirstOrDefault(p => p.Id == id);
         }
 
 
-        // write methods
+        // Методи за записване на даннови модели в базата
+        
 
         public void WriteBrandDataModelToDatabase(BrandDataModel model)
         {
@@ -194,6 +222,10 @@ namespace AutoGarage.Controller
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Създава или подновява част в базата. Ако частта вече е в базата я подновява, а ако я няма я създава.
+        /// </summary>
+        /// <param name="model"></param>
         public void AddOrUpdateParts(SparePartsDataModel model)
         {
             var part = context.Spare_Parts.FirstOrDefault(s => s.Id == model.Id);
@@ -213,6 +245,11 @@ namespace AutoGarage.Controller
 
         }
 
+        /// <summary>
+        /// Изтрива част по Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool DeletePartById(int id)
         {
             var part = context.Spare_Parts.FirstOrDefault(p => p.Id == id);
@@ -227,7 +264,7 @@ namespace AutoGarage.Controller
             return true;
         }
         /// <summary>
-        /// Makes the MANY to MANY relationship
+        /// Създава връзката Много към Много в базата данни
         /// </summary>
         /// <param name="idPart"></param>
         /// <param name="idCard"></param>
@@ -241,6 +278,11 @@ namespace AutoGarage.Controller
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Прекратява връзката Много към Много в базата данни
+        /// </summary>
+        /// <param name="idPart"></param>
+        /// <param name="idCard"></param>
         public void UnlinkPartsAndMaintenanceCards(int idPart, int idCard)
         {
             var part = context.Spare_Parts.First(p => p.Id == idPart);

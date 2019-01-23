@@ -1,0 +1,1 @@
+Paste the 2 database files in C:\Users\UserName\

@@ -7,6 +7,9 @@ using AutoGarage.Controller;
 
 namespace AutoGarage.Data
 {
+    /// <summary>
+    /// Dependancy Injection Class. Подава по една инстанция на класовете по-долу. По този начин елиминира нуждата да се създават нови обекти всеки път.
+    /// </summary>
     public class Dependancies
     {
         private AutomobileDbContext DatabaseContext { get; set; }

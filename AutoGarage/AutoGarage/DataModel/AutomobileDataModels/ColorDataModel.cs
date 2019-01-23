@@ -9,5 +9,6 @@ namespace AutoGarage.DataModel.AutomobileDataModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+      
     }
 }

@@ -9,8 +9,12 @@ using AutoGarage.Controller;
 
 namespace AutoGarage.Data
 {
+    /// <summary>
+    /// Зарежда таблицата с предварително записане в .txt файл информация
+    /// </summary>
     public class DatabaseInfoLoader
     {
+        
         private string applicationPath { get; set; }
         private MiscController miscController { get; set; }
        
@@ -21,6 +25,10 @@ namespace AutoGarage.Data
             this.miscController = miscController;
         }
 
+        /// <summary>
+        /// Чете файла с цветове и ги записва в базата данни. След това записва, че е прочел файла в config.file
+        /// </summary>
+        /// <param name="FileName"></param>
         public void LoadColorsFromFile(string FileName = "")
         {
             if (FileName == "")
@@ -49,6 +57,11 @@ namespace AutoGarage.Data
             obj.Close();
         }
 
+        /// <summary>
+        /// Записва марки и съответсващите им модели в базата данни. Това са 2 отделни файла, които се синхронизират в циклите по-долу и се прочитат.
+        /// </summary>
+        /// <param name="FileNameBrands"></param>
+        /// <param name="FileNameModels"></param>
         public void LoadBrandsAndModels(string FileNameBrands = "", string FileNameModels = "")
         {
             if (FileNameBrands == "")
@@ -100,7 +113,11 @@ namespace AutoGarage.Data
             } // end config check if
 
         }
-
+        /// <summary>
+        /// Проверява дали таблицата е конфигуриране - т.е дали са записани цветове, марки и модели.
+        /// Ако е така, не позволява да се запишат отново.
+        /// </summary>
+        /// <returns></returns>
         private bool HasConfigForBrandsAndModels()
         {
             try

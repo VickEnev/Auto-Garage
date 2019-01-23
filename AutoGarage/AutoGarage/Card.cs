@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using AutoGarage.Controller;
+﻿using AutoGarage.Controller;
 using AutoGarage.DataModel.MaintenanceCardDataModel;
 using AutoGarage.DataModel.SparePartsDataModels;
 using AutoGarage.ViewModels;
+using System;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AutoGarage
 {

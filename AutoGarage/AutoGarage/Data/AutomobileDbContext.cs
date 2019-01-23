@@ -17,37 +17,57 @@ using AutoGarage.DataModel;
 namespace AutoGarage.Data
 {
 
-
-
     public class AutomobileDbContext : DbContext
     {
-        // Automobile Table
+        
         /// <summary>
-        /// Main Automobile Table
+        /// Таблицата за автомобили
         /// </summary>
         public DbSet<AutomobileDataModel> Automobiles { get; set; }
 
+        /// <summary>
+        /// Таблицата за марки
+        /// </summary>
         public DbSet<BrandDataModel> Brands { get; set; }
 
         /// <summary>
-        /// Car Models
+        /// Таблицата за модел на автомобили
         /// </summary>
         public DbSet<CarModelDataModel> Models { get; set; }
 
+        /// <summary>
+        /// Таблицата за цветове
+        /// </summary>
         public DbSet<ColorDataModel> Colors { get; set; }
 
+        /// <summary>
+        /// Таблицата за двигатели
+        /// </summary>
         public DbSet<EngineDataModel> Engines { get; set; }
-
+        
+        /// <summary>
+        /// Таблицата за собственици
+        /// </summary>
         public DbSet<OwnerDataModel> Owners { get; set; }
 
-        // Spare Parts Table
+       /// <summary>
+       /// Таблицата за резервни части
+       /// </summary>
         public DbSet<SparePartsDataModel> Spare_Parts { get; set; }
 
-        // Maintenance Cards 
+       /// <summary>
+       /// Таблицата за ремонтни карти
+       /// </summary>
         public DbSet<MaintenanceCardDataModel> Maintenances { get; set; }
 
+        /// <summary>
+        /// Излишна таблица
+        /// </summary>
         public DbSet<CardsParts> CardsParts { get; set; }
 
+        /// <summary>
+        /// Тука се случва цялото преобразувание на кода в таблица. Тук също задаваме и името на таблицата.
+        /// </summary>
         public AutomobileDbContext() : base("name=GarageDatabase") { }
 
 

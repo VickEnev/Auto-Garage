@@ -1,25 +1,38 @@
-﻿using AutoGarage.ViewModels;
+﻿using AutoGarage.DataModel.AutomobileDataModels;
+using AutoGarage.DataModel.MaintenanceCardDataModel;
+using AutoGarage.DataModel.SaveTokens;
+using AutoGarage.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoGarage.DataModel.AutomobileDataModels;
-using AutoGarage.DataModel.SaveTokens;
-using AutoGarage.DataModel.MaintenanceCardDataModel;
-using System.Data.Entity.Infrastructure;
 
 namespace AutoGarage.Controller
 {
+    /// <summary>
+    /// Този клас управлява таблиците - Automobiles, Owners, MaintenanceCards
+    /// </summary>
     public class AutomobileController : Controller
     {
+        /// <summary>
+        /// Експлицитен конструктор приемащ context-та на базата данни.
+        /// </summary>
+        /// <param name="context">Контекста на базата - базата данни</param>
         public AutomobileController(Data.AutomobileDbContext context) : base(context) { }
 
+        /// <summary>
+        /// Връща автомобил по Id, ако съществува
+        /// </summary>
+        /// <param name="Id">Id-то на автомобила който искаме да вземем</param>
+        /// <returns>Обект от тип AutomobileDataModel</returns>
         public AutomobileDataModel GetAutomobileDataModel(int Id)
         {
             return context.Automobiles.FirstOrDefault(a => a.Id == Id);
         }
 
+        /// <summary>
+        /// Взема всички автомобили от таблицата и ги връща като View модели
+        /// </summary>
+        /// <returns>Лист от View модели на автомобилите</returns>
         public List<CarViewModel> getCarViewModel()
         {
             var result = new List<CarViewModel>();
@@ -52,7 +65,11 @@ namespace AutoGarage.Controller
             }
             return result;
         }
-
+        /// <summary>
+        /// Този метод се използва за да направи връзката между двигател и модел на автомобил. 
+        /// </summary>
+        /// <param name="id">Id-то на модела на автомобила</param>
+        /// <returns></returns>
         private CarModelDataModel MapIdToClass(int id)
         {
             try
@@ -64,7 +81,10 @@ namespace AutoGarage.Controller
 
             return null;
         }
-
+        /// <summary>
+        /// Запазва автомобила в базата данни
+        /// </summary>
+        /// <param name="token">Това е обект съдържащ пълната информация за автомобила</param>
         public void SaveAutomobile(AutomobileSaveToken token)
         {
             var model = MakeModelFromToken(token);
@@ -79,6 +99,11 @@ namespace AutoGarage.Controller
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Създава дата модел от пълната информация
+        /// </summary>
+        /// <param name="token">Пълната информация за автомобила взета от View-то -> AutomobileDataInput </param>
+        /// <returns></returns>
         private AutomobileDataModel MakeModelFromToken(AutomobileSaveToken token)
         {
             OwnerDataModel owner = null;
@@ -113,17 +138,19 @@ namespace AutoGarage.Controller
             result.OwnerId = owner.Id;
             result.Year = token.Year;
 
+           
+
             if (!owner.Automobiles.Contains(result))
                 owner.Automobiles.Add(result);
 
             return result;
         }
-
-        public AutomobileDataModel LoadAutomobile(int Id)
-        {
-            return context.Automobiles.FirstOrDefault(a => a.Id == Id);
-        }
-
+       
+        /// <summary>
+        /// Edit-ва вече съществуващ автомобил, логиката е сходна с тази на добавянето на автомобили
+        /// </summary>
+        /// <param name="token">Пълната информация за автомобила</param>
+        /// <param name="model">Записа от таблицата, който edit-ваме</param>
         public void UpdateAutomobile(AutomobileSaveToken token, AutomobileDataModel model)
         {
             var updatedModel = MakeModelFromToken(token);
@@ -132,8 +159,8 @@ namespace AutoGarage.Controller
             if (_model != null)
             {
                 _model.ChassiNumber = updatedModel.ChassiNumber;
-                _model.Color = updatedModel.Color;
                 _model.ColorId = updatedModel.ColorId;
+                _model.Color = updatedModel.Color;               
                 _model.Description = updatedModel.Description;
                 _model.DRN = updatedModel.DRN;
                 _model.Engine = updatedModel.Engine;
@@ -145,7 +172,10 @@ namespace AutoGarage.Controller
             }
             EditEntity<AutomobileDataModel>(_model);
         }
-
+        /// <summary>
+        /// Изтриване на автомобил по Id
+        /// </summary>
+        /// <param name="Id"></param>
         public void DeleteAutomobile(int Id)
         {
             var model = context.Automobiles.FirstOrDefault(a => a.Id == Id);
@@ -157,7 +187,11 @@ namespace AutoGarage.Controller
 
             context.SaveChanges();
         }
-
+        /// <summary>
+        /// Връща името на собственика на автомобила
+        /// </summary>
+        /// <param name="automobileId"></param>
+        /// <returns></returns>
         public string GetOwnerName(int automobileId)
         {
             return context.Automobiles.First(a => a.Id == automobileId).Owner.Name;
@@ -169,6 +203,11 @@ namespace AutoGarage.Controller
         }
 
         // queries 
+        /// <summary>
+        /// Заявка номер 1
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public CarViewModel[] GetAutomobilesAfterDate(DateTime date)
         {
             List<AutomobileDataModel> result = new List<AutomobileDataModel>();
@@ -185,6 +224,11 @@ namespace AutoGarage.Controller
             return Array.ConvertAll(result.ToArray(), ConvertDataModel_To_ViewModel);
         }
 
+        /// <summary>
+        /// Заявка номер 2
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public CarViewModel[] GetAutomobilesBeforeDate(DateTime date)
         {
             List<AutomobileDataModel> result = new List<AutomobileDataModel>();
@@ -199,7 +243,10 @@ namespace AutoGarage.Controller
             }
             return Array.ConvertAll(result.ToArray(), ConvertDataModel_To_ViewModel);
         }
-
+        /// <summary>
+        /// Заявка номер 4
+        /// </summary>
+        /// <returns></returns>
         public CarViewModel[] GetAllAutomobilesWithUnfinishedRepairs()
         {
             List<AutomobileDataModel> result = new List<AutomobileDataModel>();
@@ -218,7 +265,11 @@ namespace AutoGarage.Controller
         // end queries
 
         // Maintenance card control
-
+        /// <summary>
+        /// Връща View модел, който съдържа информацията която ще се покаже в View-то ServiceHistory.
+        /// </summary>
+        /// <param name="id">Id-то на автомобила за който искаме да изкараме сервизна история</param>
+        /// <returns></returns>
         public ServiceHistoryViewModel GetServiceHistoryViewModel(int id)
         {
             var result = new ServiceHistoryViewModel();
@@ -241,7 +292,11 @@ namespace AutoGarage.Controller
 
             return result;
         }
-
+        /// <summary>
+        /// Връща всички ремонтни карти за 1 автомобил
+        /// </summary>
+        /// <param name="chassisNumber">Номер на шасито, то е уникално за всеки един автомобил</param>
+        /// <returns></returns>
         public IList<MaintenanceCardDataModel> GetMaintenanceCardDataModelsByChassisCode(string chassisNumber)
         {
             IList<MaintenanceCardDataModel> result = new List<MaintenanceCardDataModel>();
@@ -258,14 +313,21 @@ namespace AutoGarage.Controller
             return result;
         }
 
-      
+      /// <summary>
+      /// Записва ремонтнатат карта. Използва се за edit-ване на записа в базата данни
+      /// </summary>
+      /// <param name="Model"></param>
         public void SaveMaintenanceCard(MaintenanceCardDataModel Model)
         {
             EditEntity<MaintenanceCardDataModel>(Model);
+            EditEntity<AutomobileDataModel>(context.Automobiles.First(a => a.Id == Model.AutomobileId));
         }
 
        
-
+        /// <summary>
+        /// Добавя празна ремонтна карта в базата данни
+        /// </summary>
+        /// <param name="automobileId"></param>
         public void AddMaintenanceCard(int automobileId)
         {
             var auto = context.Automobiles.FirstOrDefault(a => a.Id == automobileId);
@@ -283,7 +345,11 @@ namespace AutoGarage.Controller
             }
         }
 
-
+        /// <summary>
+        /// Изтрива ремонтна карта.
+        /// </summary>
+        /// <param name="automobileId">id-то на автомобила, на който принадлежи ремонтната карта</param>
+        /// <param name="cardId">id-to на р. карта, която искаме да изтрием</param>
         public void DeleteMaintenanceCard(int automobileId, int cardId)
         {
             var auto = context.Automobiles.FirstOrDefault(a => a.Id == automobileId);

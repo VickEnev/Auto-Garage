@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using AutoGarage.Controller;
+﻿using AutoGarage.Controller;
 using AutoGarage.DataModel.AutomobileDataModels;
-using AutoGarage.ViewModels;
 using AutoGarage.DataModel.SaveTokens;
+using AutoGarage.ViewModels;
+using System;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace AutoGarage
 {
@@ -69,6 +63,7 @@ namespace AutoGarage
                 { Volume = Model.Engine.Volume, EngineNumber = Model.Engine.EngineNumber, Id = Model.Engine.Id }).ToString();
                 txt_Chassi.Text = Model.ChassiNumber;
                 cmb_Color.SelectedIndex = Model.ColorId - 1;
+                cmb_Color.Enabled = false;
                 txt_Owner.Text = Model.Owner.Name;
                 txt_Telephone.Text = Model.Owner.TelephoneNumber;
                 rtxt_Description.Text = Model.Description;
@@ -91,18 +86,20 @@ namespace AutoGarage
                     ChassiNumber = txt_Chassi.Text,
                     ColorId = ((ColorViewModel)cmb_Color.SelectedItem).Id,
                     OwnerName = txt_Owner.Text,
-                    OwnerTelephoneNumber = txt_Telephone.Text,
+                    OwnerTelephoneNumber = "0"+txt_Telephone.Text.Substring(1),
                     Description = rtxt_Description.Text
                 };
 
-                if (Model == null)
-                    automobileController.SaveAutomobile(token);
-                else
-                    automobileController.UpdateAutomobile(token, Model);
-
-
-
-                this.Close();
+                if(MessageBox.Show("Are you sure you want to save this automobile.", "Saving", MessageBoxButtons.YesNo,MessageBoxIcon.Information)
+                    == DialogResult.Yes)
+                {
+                    if (Model == null)
+                        automobileController.SaveAutomobile(token);
+                    else
+                        automobileController.UpdateAutomobile(token, Model);
+                    this.Close();
+                }
+              
             }
         }
 
@@ -195,8 +192,8 @@ namespace AutoGarage
 
         private bool Validation()
         {
-            if (txt_Telephone.Text.Length < 10)
-            {
+            if (txt_Telephone.Text.Length < 9)
+            {           
                 MessageBox.Show("Invalid telephone number!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
@@ -241,8 +238,42 @@ namespace AutoGarage
                 return false;
             }
 
+            if(!RegexValidation())
+            {
+                MessageBox.Show("No symbol characters allowed!\nYear and Telephone must be only numbers!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+
             return true;
 
+        }
+
+        private bool RegexValidation()
+        {
+            string regexNoSymbolPattern = "[a-zA-Z]+";
+            string regexNoSymbolPattern2 = "[a-zA-Z0-9]+";
+            string regexOnlyNumberPattern = "[0-9]+";
+
+            Regex regex = new Regex(regexNoSymbolPattern);
+
+            if (!regex.IsMatch(txt_Owner.Text))
+                return false;
+
+            regex = new Regex(regexNoSymbolPattern2);
+
+            if (!regex.IsMatch(txt_DRN.Text))
+                return false;
+
+            if (!regex.IsMatch(txt_Chassi.Text))
+                return false;
+
+            regex = new Regex(regexOnlyNumberPattern);
+
+            if (!regex.IsMatch(txt_Year.Text) && !regex.IsMatch(txt_Telephone.Text))
+                return false;
+
+            return true;
         }
 
     }

@@ -23,6 +23,9 @@ namespace AutoGarage
             refreshToolStripMenuItem_Click(sender, e);
         }
 
+        /// <summary>
+        /// Асинхронно зарежда базата данни.
+        /// </summary>
         private void LoadData()
         {
             var db = new Data.DatabaseController();
@@ -102,7 +105,7 @@ namespace AutoGarage
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selected = ((CarViewModel)lb_DataBox.SelectedItem).ID;
-            var model = Dependancies.AutomobileController.LoadAutomobile(selected);
+            var model = Dependancies.AutomobileController.GetAutomobileDataModel(selected);
 
             AutomobileDataInput automobileDataInput = new AutomobileDataInput(Dependancies.MiscController,
              Dependancies.AutomobileController, model);
